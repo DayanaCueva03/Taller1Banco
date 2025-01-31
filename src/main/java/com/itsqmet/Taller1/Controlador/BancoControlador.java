@@ -18,13 +18,8 @@ public class BancoControlador {
     private BancoServicio bancoServicio;
 
     @GetMapping("/index")
-<<<<<<< HEAD
-    public String vista(){
-        return "index";
-=======
     public String vista() {
         return "/index";
->>>>>>> 7f8c9ea8e0e55d18e0fe03ed0de73c56605ed577
     }
 
     @PostMapping("/guardar")
