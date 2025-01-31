@@ -19,9 +19,8 @@ public class BancoControlador {
 
     @GetMapping("/index")
     public String vista() {
-        return "index";
+        return "/index";
     }
-
 
     @PostMapping("/guardar")
     public String guardarBanco(Banco banco){
@@ -42,5 +41,4 @@ public class BancoControlador {
         model.addAttribute("empleados", new Banco());
         return "pages/formulario";
     }
-
 }

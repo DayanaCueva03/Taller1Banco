@@ -6,12 +6,12 @@
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50">
+<body class="bg-gradient-to-r from-indigo-600 via-blue-500 to-teal-400">
 
 <!-- Navbar -->
-<nav class="bg-blue-900 p-4 text-white shadow-md">
+<nav class="bg-indigo-800 p-4 text-white shadow-lg">
   <div class="flex justify-between items-center">
-    <h1 class="text-3xl font-bold">Prestabank</h1>
+    <h1 class="text-3xl font-bold text-white">Prestabank</h1>
     <ul class="flex gap-6">
       <li><a href="#" class="hover:text-gray-300 transition-colors">Inicio</a></li>
       <li><a href="#servicios" class="hover:text-gray-300 transition-colors">Servicios</a></li>
@@ -21,54 +21,80 @@
   </div>
 </nav>
 
-<section id="formulario" class="bg-gray-50 text-center py-20">
-  <h2 class="text-3xl font-bold text-blue-900">Formulario de Registro</h2>
-  <div class="w-1/2 mx-auto mt-8 bg-white p-6 shadow-lg rounded-lg">
-    <form action="#" method="POST">
-      <!-- Nombre -->
-      <div class="mb-4">
-        <label for="nombre" class="block text-left font-semibold text-blue-900">Nombre Completo</label>
-        <input type="text" id="nombre" name="nombre" class="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-      </div>
-
-      <!-- Correo Electrónico -->
-      <div class="mb-4">
-        <label for="email" class="block text-left font-semibold text-blue-900">Correo Electrónico</label>
-        <input type="email" id="email" name="email" class="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-      </div>
-
-      <!-- Teléfono -->
-      <div class="mb-4">
-        <label for="telefono" class="block text-left font-semibold text-blue-900">Teléfono</label>
-        <input type="tel" id="telefono" name="telefono" class="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-      </div>
-
-      <!-- Dirección -->
-      <div class="mb-4">
-        <label for="direccion" class="block text-left font-semibold text-blue-900">Dirección</label>
-        <input type="text" id="direccion" name="direccion" class="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-      </div>
-
-      <!-- Aceptación de términos -->
-      <div class="mb-4 flex items-center">
-        <input type="checkbox" id="aceptar" name="aceptar" class="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-500" required>
-        <label for="aceptar" class="ml-2 text-gray-700">Acepto los <a href="#" class="text-blue-600 hover:underline">términos y condiciones</a></label>
-      </div>
-
-      <!-- Botón de Enviar -->
-      <div class="mb-4">
-        <button type="submit" class="w-full py-3 px-6 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300">
-          Enviar
-        </button>
-      </div>
-    </form>
+<!-- Hero Section -->
+<section class="flex justify-center items-center h-screen bg-cover bg-center" style="background-image: url('https://via.placeholder.com/1500x800.png?text=Bienvenido+a+Prestabank');">
+  <div class="bg-black bg-opacity-50 p-8 rounded-lg text-center text-white shadow-2xl">
+    <h2 class="text-4xl font-bold mb-6">¡Abre tu cuenta en Prestabank hoy!</h2>
+    <p class="text-xl mb-6">Fácil, rápido y seguro. ¡Comienza tu viaje financiero ahora!</p>
+    <a href="#formulario" class="bg-yellow-500 text-white px-6 py-3 rounded-full text-lg hover:bg-yellow-400 transition-colors">Abrir Cuenta</a>
   </div>
 </section>
 
+<!-- Formulario de Registro -->
+<section id="formulario" class="py-12 px-4">
+  <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h2 class="text-3xl font-semibold mb-6 text-center text-indigo-700">Formulario de Registro</h2>
+    <form class="max-w-md mx-auto"  th:action="@{/RegistroCuenta}" th:method="post" th:object="${cliente}">
+      <!-- Cédula -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="text" name="cedula" id="cedula" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="cedula" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Cédula</label>
+        <span id="cedula-error" th:if="${#fields.hasErrors('cedula')}" class="text-red-500 text-sm font-medium">Cédula incorrecta</span>
 
-<footer id="contacto" class="bg-blue-900 text-white text-center py-6 mt-10">
-  <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
-  <p>Dirección: Av. Siempre Viva 123, Quito, Ecuador | Teléfono: (02) 123-4567</p>
+      </div>
+
+      <!-- Nombres Completos -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="text" name="nombres_completos" id="nombres_completos" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+        <label for="nombres_completos" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombres Completos</label>
+        <span id="nombres-error" th:if="${#fields.hasErrors('nombres_completos')}" class="text-red-500 text-sm font-medium">Nombre incorrecto</span>
+
+      </div>
+
+
+      <!-- Correo Electrónico -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="email" name="correo_electronico" id="correo_electronico" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+        <label for="correo_electronico" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Correo Electrónico</label>
+
+        <span id="email-error" th:if="${#fields.hasErrors('correo_electronico')}" class="text-red-500 text-sm font-medium">Correo incorrecto</span>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="tel" name="telefono" id="telefono" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+        <label for="telefono" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Teléfono</label>
+
+        <span id="phone-error" th:if="${#fields.hasErrors('telefono')}" class="text-red-500 text-sm font-medium">Teléfono incorrecto</span>
+      </div>
+
+      <!-- Fecha de Nacimiento -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+        <label for="fecha_nacimiento" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Fecha de Nacimiento</label>
+
+        <span id="date-error" th:if="${#fields.hasErrors('fecha_nacimiento')}" class="text-red-500 text-sm font-medium">Fecha incorrecta</span>
+      </div>
+
+      <!-- Dirección -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="text" name="direccion" id="direccion" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+        <label for="direccion" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Dirección</label>
+
+        <span id="Address-error" th:if="${#fields.hasErrors('direccion')}" class="text-red-500 text-sm font-medium">Dirección incorrecta</span>
+      </div>
+
+      <!-- Botón Enviar -->
+      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Enviar</button>
+    </form>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contacto" class="bg-indigo-800 text-white py-6 mt-12">
+  <p class="text-center">&copy; 2025 Prestabank. Todos los derechos reservados.</p>
+  <p class="text-center">Dirección: Av. Siempre Viva 123, Quito, Ecuador | Teléfono: (02) 123-4567</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
