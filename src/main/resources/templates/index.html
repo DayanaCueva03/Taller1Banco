@@ -17,20 +17,19 @@
             <li><a href="#servicios" class="hover:text-gray-300 transition-colors">Servicios</a></li>
             <li><a href="#mision" class="hover:text-gray-300 transition-colors">Acerca de Nosotros</a></li>
             <li><a href="#contacto" class="hover:text-gray-300 transition-colors">Contacto</a></li>
+            <li><a href="atencionCliente" class="hover:text-gray-300 transition-colors">Atencion a Clientes</a></li>
         </ul>
     </div>
 </nav>
 
-<!-- Modal toggle -->
-<button id="modal-toggle" data-modal-target="default-modal" data-modal-toggle="default-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4 mx-auto hidden">Toggle modal</button>
 
 <!-- Main modal -->
-<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center hidden">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Términos y Condiciones</h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                <h3 class="text-xl font-semibold text-blue-800 dark:text-white">Abre tu cuenta</h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" id="close-modal-btn">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -38,18 +37,19 @@
             </div>
             <div class="p-4 md:p-5 space-y-4">
                 <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    Bienvenido al Prestabank, un aliado para el crecimiento económico de las personas y las empresas.
+                    En Prestabank, comienza a disfrutar de los beneficios y la seguridad de tener una cuenta bancaria para el crecimiento económico de las personas y las empresas.
                 </p>
                 <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                     Tu dinero en las mejores manos.
                 </p>
-                <img th:src="@{imagenes/images.jpg}" class="w-full h-70 object-cover mt-4 rounded-lg" alt="dinero">
-
+                <!-- Contenedor de la imagen con clases flex para centrar -->
+                <div class="flex justify-center">
+                    <img src="imagenes/images.jpg" class="w-auto h-70 object-cover mt-4 rounded-lg" alt="dinero">
+                </div>
             </div>
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
-                <button data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Rechazar</button>
-            </div>
+                <button id="accept-btn" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
+                 </div>
         </div>
     </div>
 </div>
@@ -83,15 +83,15 @@
 <section class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-6 mt-10 p-6 bg-white shadow-lg rounded-lg">
     <img th:src="@{imagenes/impuestos.jpg}" class="w-full h-89 object-cover mt-4 rounded-lg" alt="prestamos">
     <div class="md:w-1/2 text-center md:text-left">
-        <h2 class="text-3xl font-bold text-blue-600">Título de la Sección</h2>
+        <h2 class="text-3xl font-bold text-blue-600 text-center">Participa por un bono de consumo</h2>
         <p class="text-gray-700 mt-4">
-            Aquí puedes agregar un breve texto explicando el contenido de esta sección, resaltando información clave.
+            Aprovecha los descuentos por pagar en enero. (El porcentaje de descuento va de acuerdo con cada municipio).
         </p>
         <ul class="mt-4 text-gray-600 list-disc list-inside">
-            <li>Punto importante 1</li>
-            <li>Punto importante 2</li>
-            <li>Punto importante 3</li>
-            <li>Punto importante 4</li>
+            <li>Paga a tiempo y gana.</li>
+            <li>Recibe un bono de millas.</li>
+            <li>Vigencia.</li>
+            <li>Crédito Hipotecario.</li>
         </ul>
         <a href="#" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700">
             Más información
@@ -126,10 +126,17 @@
 </section>
 
 <div class="relative mx-auto bg-gradient-to-r from-blue-900 to-blue-700 text-white p-10 rounded-lg flex flex-wrap items-center justify-center md:justify-between shadow-lg">
+<<<<<<< HEAD
     <div class="w-full md:w-1/2 p-6">
         <h2 class="text-4xl font-bold mb-4">Bienvenido a Prestabank</h2>
         <p class="text-gray-200 mb-6">
             En Prestabank , trabajamos para brindarte soluciones financieras seguras y eficientes.
+=======
+    <div class="w-full md:w-1/2 p-6 ml-8"> <!-- Añadí la clase ml-8 -->
+        <h2 class="text-4xl font-bold mb-4">Bienvenido a Prestabank</h2>
+        <p class="text-gray-200 mb-6">
+            En Prestabank, trabajamos para brindarte soluciones financieras seguras y eficientes.
+>>>>>>> 7f8c9ea8e0e55d18e0fe03ed0de73c56605ed577
             Nuestro objetivo es ayudarte a alcanzar tus metas económicas con herramientas modernas y
             un servicio de calidad.
         </p>
@@ -160,9 +167,10 @@
         </div>
     </div>
 
-    <div class="relative w-[272px] h-[572px] bg-white dark:bg-gray-800 rounded-[2rem] overflow-hidden shadow-2xl border-[12px] border-gray-900">
+    <!-- Contenedor del teléfono móvil centrado -->
+    <div class="relative w-[272px] h-[572px] bg-white dark:bg-gray-800 rounded-[2rem] overflow-hidden shadow-2xl border-[12px] border-gray-900 mx-auto">
         <div class="bg-blue-900 text-white py-4 px-6 text-center font-semibold text-lg">
-            Banco XYZ - App Móvil
+            Prestabank - App Móvil
         </div>
         <div class="p-4 text-gray-800">
             <div class="bg-gray-100 p-4 rounded-lg shadow-md text-center">
@@ -208,14 +216,11 @@
                 <p class="text-gray-600 text-sm mt-2">
                     Para mayor seguridad, activa la autenticación biométrica en tu perfil.
                 </p>
-                <a href="#" class="mt-4 block text-blue-700 font-semibold hover:underline">
-                    Soporte al Cliente
-                </a>
+
             </div>
         </div>
     </div>
 </div>
-
 
 <br>
 <div id="accordion-open" data-accordion="open">
@@ -275,6 +280,18 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+<script>
+    window.onload = function() {
+        document.getElementById('default-modal').classList.remove('hidden');
+    }
+    document.getElementById('close-modal-btn').addEventListener('click', function() {
+        document.getElementById('default-modal').classList.add('hidden');
+    });
+    document.getElementById('accept-btn').addEventListener('click', function() {
+        document.getElementById('default-modal').classList.add('hidden');
+    });
+</script>
+
 
 </body>
 </html>
