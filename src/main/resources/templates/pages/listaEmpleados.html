@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container mt-3">
-    <form th:action="@{/empleados}" method="get" class="mb-3">
+    <form th:action="@{/bancos}" method="get" class="mb-3">
         <div class="input-group">
             <input type="text" name="buscarAutor" class="form-control" placeholder="Buscar autores" th:value="${buscarAutor}">
             <button class="btn btn-primary" type="submit">Buscar</button>
@@ -23,11 +23,10 @@
             <th>Email</th>
             <th>Contraseña</th>
             <th>Mensaje</th>
-            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="banco: ${autores}">
+        <tr th:each="banco: ${bancos}">
             <td th:text="${banco.id}"></td>
             <td th:text="${banco.nombre}"></td>
             <td th:text="${banco.email}"></td>

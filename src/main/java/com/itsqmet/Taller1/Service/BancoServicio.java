@@ -22,11 +22,11 @@ public class BancoServicio {
     }
 
 
-    public void insertarBanco(Banco banco) {
+    public void insertarEmpleado(Banco banco) {
         bancoRepositorio.save(banco);
     }
 
-    public void eliminarBanco(Long id) {
+    public void eliminarEmpleado(Long id) {
         bancoRepositorio.deleteById(id);
     }
 }
