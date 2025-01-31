@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Prestabank</title>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50">
 
@@ -14,10 +13,10 @@
         <h1 class="text-3xl font-bold">Prestabank</h1>
         <ul class="flex gap-6">
             <li><a href="#" class="hover:text-gray-300 transition-colors">Inicio</a></li>
-            <li><a href="#servicios" class="hover:text-gray-300 transition-colors">Servicios</a></li>
-            <li><a href="#mision" class="hover:text-gray-300 transition-colors">Misión</a></li>
+            <li><a th:href="@{formulario}" class="hover:text-gray-300 transition-colors">Formulario Empleados</a></li>
+            <!--<li><a th:href="{registroCuenta}" class="hover:text-gray-300 transition-colors">Registro Cuenta</a></li>-->
             <li><a href="#contacto" class="hover:text-gray-300 transition-colors">Contacto</a></li>
-            <li><a href="#atencionCliente" class="hover:text-gray-300 transition-colors">Atencion a Clientes</a></li>
+            <li><a th:href="@{atencionCliente}" class="hover:text-gray-300 transition-colors">Atencion a Clientes</a></li>
         </ul>
     </div>
 </nav>
@@ -126,6 +125,15 @@
 </section>
 
 <div class="relative mx-auto bg-gradient-to-r from-blue-900 to-blue-700 text-white p-10 rounded-lg flex flex-wrap items-center justify-center md:justify-between shadow-lg">
+<<<<<<< HEAD
+
+    <div class="w-full md:w-1/2 p-6">
+        <h2 class="text-4xl font-bold mb-4">Bienvenido a Prestabank</h2>
+        <p class="text-gray-200 mb-6">
+            En Prestabank , trabajamos para brindarte soluciones financieras seguras y eficientes.
+
+=======
+>>>>>>> 67c40bef2a40907dacd51102743017d755cef319
     <div class="w-full md:w-1/2 p-6 ml-8"> <!-- Añadí la clase ml-8 -->
         <h2 class="text-4xl font-bold mb-4">Bienvenido a Prestabank</h2>
         <p class="text-gray-200 mb-6">
@@ -154,7 +162,7 @@
         </ul>
 
         <div class="mt-6">
-            <a href="#" class="bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300">
+            <a th:href="@{registroCuenta}" class="bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300">
                 ¡Abre tu cuenta hoy!
             </a>
         </div>
@@ -265,6 +273,7 @@
             <p class="text-gray-800 dark:text-gray-400">Descubre más sobre nuestros productos en nuestra <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">página de productos financieros</a>.</p>
         </div>
     </div>
+</div>
 </div>
 
 <footer id="contacto" class="bg-blue-900 text-white text-center py-6 mt-10">
