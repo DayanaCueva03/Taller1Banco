@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Prestabank</title>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50">
 
@@ -125,16 +126,17 @@
 </section>
 
 <div class="relative mx-auto bg-gradient-to-r from-blue-900 to-blue-700 text-white p-10 rounded-lg flex flex-wrap items-center justify-center md:justify-between shadow-lg">
-
+<<<<<<< HEAD
     <div class="w-full md:w-1/2 p-6">
         <h2 class="text-4xl font-bold mb-4">Bienvenido a Prestabank</h2>
         <p class="text-gray-200 mb-6">
             En Prestabank , trabajamos para brindarte soluciones financieras seguras y eficientes.
-
+=======
     <div class="w-full md:w-1/2 p-6 ml-8"> <!-- Añadí la clase ml-8 -->
         <h2 class="text-4xl font-bold mb-4">Bienvenido a Prestabank</h2>
         <p class="text-gray-200 mb-6">
             En Prestabank, trabajamos para brindarte soluciones financieras seguras y eficientes.
+>>>>>>> 7f8c9ea8e0e55d18e0fe03ed0de73c56605ed577
             Nuestro objetivo es ayudarte a alcanzar tus metas económicas con herramientas modernas y
             un servicio de calidad.
         </p>
@@ -270,7 +272,6 @@
             <p class="text-gray-800 dark:text-gray-400">Descubre más sobre nuestros productos en nuestra <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">página de productos financieros</a>.</p>
         </div>
     </div>
-</div>
 </div>
 
 <footer id="contacto" class="bg-blue-900 text-white text-center py-6 mt-10">
