@@ -39,8 +39,6 @@ public class Cliente  {
 
     @OneToMany(mappedBy = "cliente")
     private List<Cuenta> cuentas;
-    @OneToMany(mappedBy = "id_cliente")
-    private List<Expediente> expediente;
 
 
     }
