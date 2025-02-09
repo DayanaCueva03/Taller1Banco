@@ -1,4 +1,4 @@
-package com.itsqmet.Taller1.Service;
+/*package com.itsqmet.Taller1.Service;
 
 import com.itsqmet.Taller1.Entidad.Banco;
 import com.itsqmet.Taller1.Repositorio.BancoRepositorio;
@@ -29,4 +29,4 @@ public class BancoServicio {
     public void eliminarEmpleado(Long id) {
         bancoRepositorio.deleteById(id);
     }
-}
+}*/

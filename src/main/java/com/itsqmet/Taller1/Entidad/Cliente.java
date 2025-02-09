@@ -1,7 +1,7 @@
 package com.itsqmet.Taller1.Entidad;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+//import jakarta.persistence.Entity;
+//import jakarta.persistence.Id;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,9 +9,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@Entity
+//@Entity
 public class Cliente {
-    @Id
+//    @Id
     @Max(value = 10, message = "El número de cédula debe ser de 10 dígitos")
     private String cedula;
 
