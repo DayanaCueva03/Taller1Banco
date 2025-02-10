@@ -1,0 +1,2 @@
+package com.itsqmet.Taller1.Repositorio;public interface InformacionCliente {
+}
