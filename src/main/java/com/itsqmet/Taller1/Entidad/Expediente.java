@@ -11,11 +11,11 @@ public class Expediente {
     private String descripcion;
     //relacion de muchos a muchos con cliente y ascesor
     @ManyToOne
-    @JoinColumn(name = "idcliente")
-    private Cliente cliente;
+    @JoinColumn(name = "id_cliente")
+    private Cliente clientes;
 
     @ManyToOne
-    @JoinColumn(name = "idasesor")
+    @JoinColumn(name = "id_asesor")
     private Asesor asesor;
 
 }

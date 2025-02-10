@@ -1,7 +1,6 @@
-package com.itsqmet.Taller1.Controlador;
+/*package com.itsqmet.Taller1.Controlador;
 
 import com.itsqmet.Taller1.Entidad.Cuenta;
-import com.itsqmet.Taller1.Service.BancoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,4 +40,4 @@ public class BancoControlador {
         model.addAttribute("empleados", new Cuenta());
         return "pages/formulario";
     }
-}
+}*/

@@ -18,7 +18,6 @@
             <li><a th:href="@{registroCuenta}" class="hover:text-gray-300 transition-colors">Registro Cuenta</a></li>
             <li><a href="#contacto" class="hover:text-gray-300 transition-colors">Contacto</a></li>
             <li><a th:href="@{atencionCliente}" class="hover:text-gray-300 transition-colors">Atencion a Clientes</a></li>
-            <li><a th:href="@{informacionCliente}" class="hover:text-gray-300 transition-colors">Informacion del Cliente</a></li>
         </ul>
     </div>
 </nav>

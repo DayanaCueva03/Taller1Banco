@@ -39,9 +39,9 @@ public class Cuenta {
     //Cardinalidad con la entidad Cliente, R=1-n
 
     @ManyToOne
-    @JoinColumn(name = "id_cedula")
+    @JoinColumn(name = "cedula")
     private Cliente cliente;
 @OneToMany(mappedBy = "cuenta")
-    private List<Transacciones> transacciones;
+    private List<Movimientos> movimientos;
 
 }

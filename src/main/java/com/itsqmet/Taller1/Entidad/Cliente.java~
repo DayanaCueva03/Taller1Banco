@@ -39,7 +39,7 @@ public class Cliente  {
 
     @OneToMany(mappedBy = "cliente")
     private List<Cuenta> cuentas;
-    @OneToMany(mappedBy = "clientes")
+    @OneToMany(mappedBy = "cliente")
     private List<Expediente> expediente;
 
 
