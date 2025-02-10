@@ -80,4 +80,20 @@ public class RegistroCuentaController {
     }
 
 
+    //Tarjeta de presentacion
+
+//    @GetMapping("/confirmacionCuenta")
+//    public String mostrarConfirmacionCuenta(@RequestParam("clienteId") Long clienteId, Model model) {
+//        // Obtener la cuenta usando el clienteId
+//        List<Cuenta> cuenta = cuentaServicio.obtenerCuentaPorClienteId(clienteId);
+//
+//        // Asegúrate de que la cuenta esté completamente poblada
+//        model.addAttribute("cuenta", cuenta);
+//
+//        return "Pages/confirmarCuenta";  // La vista que contiene la tarjeta de presentación
+//    }
+
+
+
+
 }

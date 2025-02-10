@@ -42,6 +42,7 @@ public class CuentaServicio {
         return String.format("%06d",(int)(Math.random()*1000000));
     }
 
+
     public Cuenta generarNumeroCuenta(Cuenta cuenta){
         if (cuenta.getTipoCuenta() != null) {
             String tipoCuenta = cuenta.getTipoCuenta();

@@ -20,7 +20,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
             "FROM cliente cl " +
             "JOIN cuenta cu ON cl.id = cu.id_cliente " +
             "WHERE cl.id = :id " +
-            "ORDER BY cu.fecha_apertura DESC LIMIT 1", nativeQuery = true)
+            "ORDER BY cu.fecha_creacion DESC LIMIT 1", nativeQuery = true)
     List<Object[]> buscarCuentaReciente(@Param("id") Long id);
 
 
