@@ -46,7 +46,7 @@ public class Cliente {
         informacion.setSaldo((BigDecimal) registros[3]);
         informacion.setTipoCuenta((String) registros[4]);
         informacion.setMonto((BigDecimal) registros[5]);
-        Timestamp timestamp = (Timestamp) registros[14];
+        Timestamp timestamp = (Timestamp) registros[6];
         informacion.setFechaMovimiento(timestamp.toLocalDateTime().toLocalDate());
         informacion.setDescripcion((String) registros[7]);
         return informacion;

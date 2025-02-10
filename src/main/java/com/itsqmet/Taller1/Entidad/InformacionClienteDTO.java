@@ -7,18 +7,47 @@ import java.time.LocalDate;
 
 public class InformacionClienteDTO {
     private String nombreCliente;
-private String cedulaCliente;
-private String numeroCuenta;
-private BigDecimal Saldo;
-private String tipoCuenta;
-private BigDecimal monto;
-@DateTimeFormat(pattern = "yyyy-MM-dd")
-private LocalDate fechaMovimiento;
-private String descripcion;
+    private String cedulaCliente;
+    private String numeroCuenta;
+    private BigDecimal Saldo;
+    private String tipoCuenta;
+    private BigDecimal monto;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaMovimiento;
+    private String descripcion;
+    private Long clienteId;
+    private Long cuentaId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaCaducidad;
+
 
 
 //Getters y Setters
 
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public Long getCuentaId() {
+        return cuentaId;
+    }
+
+    public void setCuentaId(Long cuentaId) {
+        this.cuentaId = cuentaId;
+    }
+
+    public LocalDate getFechaCaducidad() {
+        return fechaCaducidad;
+    }
+
+    public void setFechaCaducidad(LocalDate fechaCaducidad) {
+        this.fechaCaducidad = fechaCaducidad;
+    }
 
     public String getNombreCliente() {
         return nombreCliente;

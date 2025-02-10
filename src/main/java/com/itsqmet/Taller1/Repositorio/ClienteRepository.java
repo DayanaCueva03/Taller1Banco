@@ -10,19 +10,11 @@ import java.util.List;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    @Query(value = "SELECT cl.nombre, cl.cedula, cu.numero_cuenta, cu.saldo, cu.tipo_cuenta " +
-            "FROM cliente cl " +
-            "JOIN cuenta cu ON cl.id = cu.id_cliente " +
-            "WHERE cl.id = :id", nativeQuery = true)
-    List<Object[]> buscarCuentas(@Param("id") Long id);
-
-    @Query(value = "SELECT cl.nombre, cl.cedula, cu.numero_cuenta, cu.saldo, cu.tipo_cuenta, \n" +
-            "       tr.monto, tr.fecha_movimiento, tr.descripcion\n" +
+    @Query(value = "SELECT cl.nombre, cl.cedula, cu.numero_cuenta, cu.saldo, cu.tipo_cuenta,cu.fecha_caducidad,cl.id \n" +
             "FROM cliente cl \n" +
-            "JOIN cuenta cu ON cl.id = cu.id_cliente\n" +
-            "JOIN transacciones tr ON cu.id = tr.id_cuenta\n" +
+            "JOIN cuenta cu ON cl.id = cu.id_cliente\n"+
             "WHERE cl.id = :id\n" +
-            "ORDER BY cu.fecha_apertura DESC limit 1;", nativeQuery = true)
+            "ORDER BY cu.fecha_apertura DESC limit 1", nativeQuery = true)
     List<Object[]> buscarCuentaReciente(@Param("id") Long id);
 
 

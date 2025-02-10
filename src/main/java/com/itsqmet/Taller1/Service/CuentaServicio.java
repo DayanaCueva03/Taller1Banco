@@ -2,6 +2,7 @@ package com.itsqmet.Taller1.Service;
 
 import com.itsqmet.Taller1.Entidad.Cliente;
 import com.itsqmet.Taller1.Entidad.Cuenta;
+import com.itsqmet.Taller1.Entidad.InformacionClienteDTO;
 import com.itsqmet.Taller1.Repositorio.ClienteRepository;
 import com.itsqmet.Taller1.Repositorio.CuentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,13 +33,6 @@ public class CuentaServicio {
         cuentaRepository.save(cuenta);
     }
 
-    public List<Cuenta> obtenerCuentaPorClienteId(Long clienteId) {
-        // Suponiendo que existe un campo 'cliente' en la entidad Cuenta que es una relación con Cliente
-        return cuentaRepository.findByClienteId(clienteId);
-    }
-
-    //Metodo Para generear numeros de cuenta de manera automatica
-
     public String generarNumeroCuentaAleatoria(){
         return String.format("%06d",(int)(Math.random()*1000000));
     }
@@ -54,6 +49,25 @@ public class CuentaServicio {
             cuenta.setEstado("Activa");
         }
         return cuenta;
+    }
+
+    public List<InformacionClienteDTO> buscarListaCuentas(Long id) {
+        List<Object[]> datos = cuentaRepository.buscarCuentas(id);
+        List<InformacionClienteDTO> registros = new ArrayList<>();
+
+        for (Object[] registro : datos) {
+            InformacionClienteDTO informacion = extraerInformacion(registro);
+            registros.add(informacion);
+        }
+        return registros;
+    }
+
+
+    private InformacionClienteDTO extraerInformacion(Object[] registros) {
+        InformacionClienteDTO informacion = new InformacionClienteDTO();
+        if (registros.length > 0) informacion.setNumeroCuenta((String) registros[0]);
+        if (registros.length > 1) informacion.setCuentaId((Long) registros[1]);
+        return informacion;
     }
 
 

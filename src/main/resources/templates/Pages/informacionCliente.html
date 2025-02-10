@@ -30,44 +30,44 @@
     </div>
 
     <!-- Tarjetas de información -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    < <div class="grid grid-cols-1 md:grid-cols-3 gap-8" th:each="dato : ${datos}">
 
-        <!-- Saldo Actual -->
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
-            <h4 class="text-2xl font-semibold text-blue-800">Saldo Actual</h4>
-            <p class="text-3xl font-bold text-indigo-600 mt-4">$500.00</p>
-        </div>
-
-        <!-- Historial de Transacciones -->
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
-            <h4 class="text-2xl font-semibold text-blue-800">Historial</h4>
-            <div class="mt-4">
-                <p><strong class="text-blue-600">Última Transacción:</strong> $50.00</p>
-                <p><strong class="text-blue-600">Fecha:</strong> 2025-02-09</p>
-            </div>
-        </div>
-
-        <!-- Depósitos, Retiros y Transacciones -->
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
-            <h4 class="text-2xl font-semibold text-blue-800">Depósitos / Retiros / Transacciones</h4>
-            <div class="mt-4">
-                <p><strong class="text-green-600">Depósito:</strong> $200.00</p>
-                <p><strong class="text-red-600">Retiro:</strong> $100.00</p>
-                <p><strong class="text-orange-500">Transacciones Pendientes:</strong> 2</p>
-            </div>
-        </div>
-
+    <!-- Saldo Actual -->
+    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+        <h4 class="text-2xl font-semibold text-blue-800">Saldo Actual</h4>
+        <p class="text-3xl font-bold text-indigo-600 mt-4" th:text="'$' + ${dato.saldo}"></p>
     </div>
 
+    <!-- Historial de Transacciones -->
+    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+        <h4 class="text-2xl font-semibold text-blue-800">Historial</h4>
+        <div class="mt-4">
+            <p><strong class="text-blue-600">Última Transacción:</strong><span class="font-bold"  th:text="' $' + ${dato.monto}"></span></p>
+            <p><strong class="text-blue-600">Fecha:</strong><span th:text="' '+${dato.fechaMovimiento}"></span></p>
+        </div>
+    </div>
+
+    <!-- Depósitos, Retiros y Transacciones -->
+    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+        <h4 class="text-2xl font-semibold text-blue-800">Datos Personales</h4>
+        <div class="mt-4">
+            <p><strong class="text-green-600">Nombre:</strong> <span th:text="${dato.nombreCliente}"></span> </p>
+            <p><strong class="text-red-600">Numero de Cuenta:</strong> <span th:text="${dato.numeroCuenta}"></span></p>
+            <p><strong class="text-orange-500">Tipo de Cuenta:</strong> <span th:text="${dato.tipoCuenta}"></span> </p>
+        </div>
+    </div>
+
+</div>
+
     <!-- Aplicación móvil -->
-    <div class="relative mt-12 p-8 bg-gray-50 rounded-lg shadow-lg">
+    <div class="relative mt-12 p-8 bg-gray-50 rounded-lg shadow-lg" th:each="dato : ${datos}">
         <div class="absolute inset-0 bg-blue-900 opacity-50 rounded-lg"></div>
         <div class="relative z-10">
             <h3 class="text-2xl font-bold text-white">Prestabank - App Móvil</h3>
             <div class="bg-white mt-6 p-6 rounded-lg shadow-lg">
                 <div class="text-center">
                     <p class="text-sm text-gray-600">Saldo Disponible</p>
-                    <p class="text-3xl font-bold text-blue-900">$5,250.75</p>
+                    <p class="text-3xl font-bold text-blue-900"><span class="font-bold"  th:text="' $' + ${dato.saldo}"></span></p>
                 </div>
                 <div class="mt-8 grid grid-cols-2 gap-4 text-center">
                     <div @click="openModal" class="bg-blue-600 text-white py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer">
@@ -83,17 +83,30 @@
                         <p>Retirar</p>
                     </div>
                 </div>
+                <div class="mt-8">
+                    <h4 class="font-semibold text-gray-700">Últimos Movimientos</h4>
+                    <ul class="space-y-4 mt-4 text-sm text-gray-600">
+                        <li class="flex justify-between border-b pb-2">
+                            <span th:text="${dato.descripcion}"></span>
+                            <span class="text-red-500" th:text="' - $' + ${dato.monto}"></span>
+                        </li>
+                    </ul>
+                </div>
 
                 <!-- Modal de Transferencia -->
                 <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div class="bg-white p-6 rounded-lg shadow-xl w-96">
                         <h3 class="text-2xl font-bold text-blue-800 mb-4">Formulario de Transferencia</h3>
 
-                        <form @submit.prevent="procesarTransferencia">
+                        <form>
                             <div class="mb-4">
                                 <label for="cuentaDestino" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
-                                <select id="cuentaDestino" v-model="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
-                                    <option v-for="cuenta in cuentasDestino" :key="cuenta" :value="cuenta">{{ cuenta }}</option>
+                                <select id="cuentaDestino" name="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2">
+                                    <option value="">Seleccione una cuenta</option> <!-- Opción por defecto -->
+                                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.numeroCuenta}" th:text="${cuenta.numeroCuenta}">
+                                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.cuentaId}">
+                                        <!-- El texto dentro del option será el número de cuenta -->
+                                    </option>
                                 </select>
                             </div>
 

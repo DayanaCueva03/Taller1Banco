@@ -2,25 +2,24 @@ package com.itsqmet.Taller1.Controlador;
 
 import com.itsqmet.Taller1.Entidad.Cliente;
 import com.itsqmet.Taller1.Entidad.Cuenta;
+import com.itsqmet.Taller1.Entidad.InformacionClienteDTO;
+import com.itsqmet.Taller1.Service.ClienteServicio;
 import com.itsqmet.Taller1.Service.CuentaServicio;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Controller
 public class RegistroCuentaController {
     @Autowired
     CuentaServicio cuentaServicio;
+    @Autowired
+    ClienteServicio cliente;
     //Registro de datos personales del cliente
     @GetMapping("/registroCuenta")
     public String vista(Model model){
@@ -60,7 +59,7 @@ public class RegistroCuentaController {
         cuenta.setCliente(cliente);
         cuentaServicio.guardarCuenta(cuenta);
         model.addAttribute("cuenta", cuenta);
-       return "Pages/confirmarCuenta";
+        return "redirect:/ConfirmarCuenta?id=" + clienteId;
     }
     @GetMapping("/generarValoresCuenta")
     public String generarValoresCuenta(@RequestParam("tipoCuenta") String tipoCuenta, Model model) {
@@ -79,5 +78,11 @@ public class RegistroCuentaController {
         return "Pages/abrirCuenta";
     }
 
+    @GetMapping("/ConfirmarCuenta")
+    public String confirmarCuenta(@RequestParam("id") Long id, Model model) {
+        InformacionClienteDTO informacion = cliente.buscarCuentaReciente(id);
+        model.addAttribute("cuenta", informacion); // Pasamos solo un objeto al modelo
+        return "Pages/confirmarCuenta";
+    }
 
 }
