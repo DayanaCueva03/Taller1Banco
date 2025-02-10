@@ -1,6 +1,9 @@
 package com.itsqmet.Taller1.Entidad;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class InformacionClienteDTO {
     private String nombreCliente;
@@ -8,6 +11,11 @@ private String cedulaCliente;
 private String numeroCuenta;
 private BigDecimal Saldo;
 private String tipoCuenta;
+private BigDecimal monto;
+@DateTimeFormat(pattern = "yyyy-MM-dd")
+private LocalDate fechaMovimiento;
+private String descripcion;
+
 
 //Getters y Setters
 
@@ -50,5 +58,29 @@ private String tipoCuenta;
 
     public void setTipoCuenta(String tipoCuenta) {
         this.tipoCuenta = tipoCuenta;
+    }
+
+    public LocalDate getFechaMovimiento() {
+        return fechaMovimiento;
+    }
+
+    public void setFechaMovimiento(LocalDate fechaMovimiento) {
+        this.fechaMovimiento = fechaMovimiento;
+    }
+
+    public BigDecimal getMonto() {
+        return monto;
+    }
+
+    public void setMonto(BigDecimal monto) {
+        this.monto = monto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

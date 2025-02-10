@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,10 @@ public class Cliente {
         informacion.setNumeroCuenta((String) registros[2]);
         informacion.setSaldo((BigDecimal) registros[3]);
         informacion.setTipoCuenta((String) registros[4]);
+        informacion.setMonto((BigDecimal) registros[5]);
+        Timestamp timestamp = (Timestamp) registros[6];
+        informacion.setFechaMovimiento(timestamp.toLocalDateTime().toLocalDate());
+        informacion.setDescripcion((String) registros[7]);
         return informacion;
     }
 }
