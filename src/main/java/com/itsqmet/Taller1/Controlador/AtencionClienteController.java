@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AtencionClienteController {
+    @GetMapping("/index")
+    public String vista() {
+        return "/index";
+    }
 
     // Mapea la URL "/atencionCliente" y retorna la vista correspondiente
     @GetMapping("/atencionCliente")

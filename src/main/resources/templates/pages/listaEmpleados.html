@@ -26,15 +26,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="banco: ${bancos}">
-            <td th:text="${banco.id}"></td>
-            <td th:text="${banco.nombre}"></td>
-            <td th:text="${banco.email}"></td>
-            <td th:text="${banco.password}"></td>
-            <td th:text="${banco.mensaje}"></td>
+        <tr th:each="cuenta: ${bancos}">
+            <td th:text="${cuenta.id}"></td>
+            <td th:text="${cuenta.nombre}"></td>
+            <td th:text="${cuenta.email}"></td>
+            <td th:text="${cuenta.password}"></td>
+            <td th:text="${cuenta.mensaje}"></td>
             <td>
-                <a th:href="@{/actualizar/} + ${banco.id}" class="btn btn-success">Actualizar</a>
-                <a th:href="@{/eliminar/} + ${banco.id}" class="btn btn-danger">Eliminar</a>
+                <a th:href="@{/actualizar/} + ${cuenta.id}" class="btn btn-success">Actualizar</a>
+                <a th:href="@{/eliminar/} + ${cuenta.id}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         </tbody>
