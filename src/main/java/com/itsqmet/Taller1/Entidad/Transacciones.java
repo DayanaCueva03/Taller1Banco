@@ -13,20 +13,17 @@ public class Transacciones  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String descripcion;
     private BigDecimal monto;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime fechaMovimiento;
     private String CuentaDestino ;
     private String CuentaOrigen;
-private String descripcion;
 
-@ManyToOne
-@JoinColumn(name = "id_cuenta")
-private Cuenta cuenta;
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "id_cuenta")
+    private Cuenta cuenta;
 
 
 }

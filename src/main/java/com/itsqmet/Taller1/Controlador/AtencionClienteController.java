@@ -10,28 +10,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AtencionClienteController {
     @GetMapping("/index")
     public String vista() {
-        return"/index";
-}
+        return "/index";
+    }
 
     // Mapea la URL "/atencionCliente" y retorna la vista correspondiente
-    @GetMapping("/atencionCliente")
+    @GetMapping("/informacionCliente")
     public String mostrarFormulario() {
-        return "pages/atencionCliente";  // Nombre de la vista HTML sin espacio adicional
+        return "Pages/informacionCliente";  // Nombre de la vista HTML sin espacio adicional
     }
 
     // Mapea la URL "/atencionCliente" para procesar el formulario y mostrar el mensaje de confirmación
-    @PostMapping("/atencionCliente")
+    /*@PostMapping("/")
     public String procesarMensaje(
+
             @RequestParam String nombre,
+            @Re@RequestParam String apellido,
             @RequestParam String email,
+            @RequestParam String telefono,
+            @RequestParam String direccion,
             @RequestParam String mensaje,
             Model model) {
-
-        // Agregar el nombre y el mensaje al modelo
-        model.addAttribute("nombre", nombre);
-        model.addAttribute("mensaje", "Gracias por tu mensaje, " + nombre + ". Nos pondremos en contacto pronto.");
-
         // Retornar la vista de confirmación
-        return "pages/confirmacion";  // Página de confirmación correctamente mapeada
-    }
+        return "pages/informacionCliente";  // Página de confirmación correctamente mapeada
+    }*/
 }
