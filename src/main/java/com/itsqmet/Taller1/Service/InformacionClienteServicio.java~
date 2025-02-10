@@ -1,0 +1,65 @@
+package com.itsqmet.Taller1.Service;
+
+import com.itsqmet.Taller1.Entidad.InformacionCliente;
+import com.itsqmet.Taller1.Entidad.Cuenta;
+import com.itsqmet.Taller1.Repositorio.InformacionClienteRepositorio;
+import com.itsqmet.Taller1.Repositorio.CuentaRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class InformacionClienteServicio {
+
+    @Autowired
+    private InformacionClienteRepositorio informacionClienteRepositorio;
+
+    @Autowired
+    private CuentaRepositorio cuentaRepositorio;
+
+    // Obtener todos los clientes o filtrarlos por nombre
+    public List<InformacionCliente> buscarPorNombre(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            return informacionClienteRepositorio.findAll();
+        } else {
+            return informacionClienteRepositorio.findByNombreContainingIgnoreCase(nombre);
+        }
+    }
+
+    // Obtener un cliente por ID
+    public InformacionCliente buscarPorId(Long id) {
+        Optional<InformacionCliente> cliente = informacionClienteRepositorio.findById(id);
+        return cliente.orElse(null);
+    }
+
+    // Guardar o actualizar cliente
+    public void insertarCliente(InformacionCliente cliente) {
+        informacionClienteRepositorio.save(cliente);
+    }
+
+    // Eliminar cliente
+    public void eliminarCliente(Long id) {
+        informacionClienteRepositorio.deleteById(id);
+    }
+
+    // Obtener las cuentas asociadas a un cliente
+    public List<Cuenta> obtenerCuentasPorCliente(Long clienteId) {
+        InformacionCliente cliente = informacionClienteRepositorio.findById(clienteId).orElse(null);
+        if (cliente != null) {
+            return cuentaRepositorio.findByCliente(cliente);
+        }
+        return null;
+    }
+
+    // Guardar una nueva cuenta asociada a un cliente
+    public void insertarCuenta(Cuenta cuenta) {
+        cuentaRepositorio.save(cuenta);
+    }
+
+    // Eliminar una cuenta
+    public void eliminarCuenta(Long id) {
+        cuentaRepositorio.deleteById(id);
+    }
+}
