@@ -10,6 +10,7 @@ public class Expediente {
 
     private String descripcion;
     //relacion de muchos a muchos con cliente y ascesor
+
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente clientes;
