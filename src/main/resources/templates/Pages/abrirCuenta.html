@@ -6,7 +6,7 @@
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen bg-gray-100">
 
 <!-- Navbar -->
 <nav class="bg-blue-700 text-white py-4 px-6 shadow-md">
@@ -20,12 +20,14 @@
   </div>
 </nav>
 
-<div class="flex flex-grow justify-center items-center">
-  <div class="flex w-full max-w-4xl bg-white p-8 rounded-lg shadow-md">
+<div class="flex flex-grow justify-center items-center p-6">
+  <div class="flex w-full max-w-5xl bg-white shadow-lg rounded-lg overflow-hidden">
     <!-- Sección de Información -->
-    <div class="w-1/2 flex flex-col justify-center items-center p-6">
-      <img src="imagenes/chico.jpg" alt="Información Adicional" class="w-full rounded-lg mb-4">
-      <p class="text-gray-700 text-center">Regístrate en Prestabank y accede a múltiples beneficios financieros.</p>
+    <div class="w-1/2 bg-cover bg-center relative" style="background-image: url('imagenes/chico.jpg');">
+      <div class="absolute inset-0 bg-blue-900 bg-opacity-50 flex flex-col items-center justify-center text-white p-6">
+        <h2 class="text-3xl font-semibold mb-2">Únete a Prestabank</h2>
+        <p class="text-lg text-center">Aprovecha todos los beneficios financieros que tenemos para ti.</p>
+      </div>
     </div>
 
     <!-- Formulario -->

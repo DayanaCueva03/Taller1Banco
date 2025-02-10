@@ -7,86 +7,138 @@
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-r via-indigo-500 ">
+
 <!-- Navbar -->
-<nav class="bg-blue-900 p-4 text-white shadow-md">
-    <div class="flex justify-between items-center">
-        <h1 class="text-3xl font-bold">Prestabank</h1>
-        <ul class="flex gap-6">
-            <li><a href="/index" class="hover:text-gray-300 transition-colors">Inicio</a></li>
-            <li><a href="#mision" class="hover:text-gray-300 transition-colors">Misión</a></li>
-            <li><a href="#contacto" class="hover:text-gray-300 transition-colors">Contacto</a></li>
+<nav class="bg-gradient-to-r from-blue-900 to-indigo-800 p-6 shadow-xl">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-3xl font-extrabold text-white">Prestabank</h1>
+        <ul class="flex space-x-8 text-white font-semibold">
+            <li><a href="/index" class="hover:text-gray-200 transition-colors">Inicio</a></li>
+            <li><a href="#mision" class="hover:text-gray-200 transition-colors">Misión</a></li>
+            <li><a href="#contacto" class="hover:text-gray-200 transition-colors">Contacto</a></li>
         </ul>
     </div>
 </nav>
 
-<div class="container mx-auto flex flex-col items-center justify-center" style="margin-top: 50px; max-width: 1200px; padding: 30px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
-    <div class="form-container">
-        <div class="form-title">
-            <h2 class="text-3xl font-bold text-blue-900">Información del Cliente</h2>
+<div class="container mx-auto mt-12 p-8 bg-gray-100 rounded-lg shadow-xl max-w-screen-xl">
+
+
+    <!-- Título principal -->
+    <div class="text-center mb-8">
+        <h2 class="text-4xl font-extrabold text-blue-900">Información del Cliente</h2>
+        <p class="text-lg text-gray-600 mt-2">Consulta tus detalles y transacciones más recientes</p>
+    </div>
+
+    <!-- Tarjetas de información -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Saldo Actual -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+            <h4 class="text-2xl font-semibold text-blue-800">Saldo Actual</h4>
+            <p class="text-3xl font-bold text-indigo-600 mt-4">$500.00</p>
         </div>
 
-        <!-- Las tres cartas en fila -->
-        <div class="card-container" style="display: flex; justify-content: space-between; margin-top: 30px; gap: 20px; width: 100%;">
-            <!-- Carta 1: Saldo -->
-            <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:scale-105 hover:bg-blue-100 hover:shadow-xl hover:border-2 hover:border-blue-400">
-                <div class="card-title">
-                    <h4 class="font-semibold text-lg text-blue-900">Saldo Actual</h4>
-                </div>
-                <div class="card-body" style="font-size: 1.1rem;">
-                    <p><strong>$500.00</strong></p> <!-- Aquí irá el saldo actual del cliente -->
-                </div>
+        <!-- Historial de Transacciones -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+            <h4 class="text-2xl font-semibold text-blue-800">Historial</h4>
+            <div class="mt-4">
+                <p><strong class="text-blue-600">Última Transacción:</strong> $50.00</p>
+                <p><strong class="text-blue-600">Fecha:</strong> 2025-02-09</p>
             </div>
+        </div>
 
-            <!-- Carta 2: Historial -->
-            <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:scale-105 hover:bg-blue-100 hover:shadow-xl hover:border-2 hover:border-blue-400">
-                <div class="card-title">
-                    <h4 class="font-semibold text-lg text-blue-900">Historial</h4>
-                </div>
-                <div class="card-body" style="font-size: 1.1rem;">
-                    <p><strong>Última Transacción: $50.00</strong></p>
-                    <p>Fecha: 2025-02-09</p>
-                    <!-- Aquí se puede agregar más información histórica, como transacciones previas -->
-                </div>
+        <!-- Depósitos, Retiros y Transacciones -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+            <h4 class="text-2xl font-semibold text-blue-800">Depósitos / Retiros / Transacciones</h4>
+            <div class="mt-4">
+                <p><strong class="text-green-600">Depósito:</strong> $200.00</p>
+                <p><strong class="text-red-600">Retiro:</strong> $100.00</p>
+                <p><strong class="text-orange-500">Transacciones Pendientes:</strong> 2</p>
             </div>
+        </div>
 
-            <!-- Carta 3: Depósitos, Retiros y Transacciones -->
-            <div class="bg-white p-6 shadow-lg rounded-lg transition transform hover:scale-105 hover:bg-blue-100 hover:shadow-xl hover:border-2 hover:border-blue-400">
-                <div class="card-title">
-                    <h4 class="font-semibold text-lg text-blue-900">Depósitos / Retiros / Transacciones</h4>
+    </div>
+
+    <!-- Aplicación móvil -->
+    <div class="relative mt-12 p-8 bg-gray-50 rounded-lg shadow-lg">
+        <div class="absolute inset-0 bg-blue-900 opacity-50 rounded-lg"></div>
+        <div class="relative z-10">
+            <h3 class="text-2xl font-bold text-white">Prestabank - App Móvil</h3>
+            <div class="bg-white mt-6 p-6 rounded-lg shadow-lg">
+                <div class="text-center">
+                    <p class="text-sm text-gray-600">Saldo Disponible</p>
+                    <p class="text-3xl font-bold text-blue-900">$5,250.75</p>
                 </div>
-                <div class="card-body" style="font-size: 1.1rem;">
-                    <p><strong>Depósito: $200.00</strong></p>
-                    <p><strong>Retiro: $100.00</strong></p>
-                    <p><strong>Transacciones Pendientes: 2</strong></p>
-                    <!-- Detalles sobre las transacciones, depósitos y retiros -->
+                <div class="mt-8 grid grid-cols-2 gap-4 text-center">
+                    <div class="bg-blue-600 text-white py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer">
+                        <p>Transferir</p>
+                    </div>
+                    <div class="bg-green-600 text-white py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-300 cursor-pointer">
+                        <p>Depositar</p>
+                    </div>
+                    <div class="bg-yellow-500 text-white py-3 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 cursor-pointer">
+                        <p>Pagos</p>
+                    </div>
+                    <div class="bg-red-500 text-white py-3 rounded-lg shadow-md hover:bg-red-600 transition duration-300 cursor-pointer">
+                        <p>Retirar</p>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <h4 class="font-semibold text-gray-700">Últimos Movimientos</h4>
+                    <ul class="space-y-4 mt-4 text-sm text-gray-600">
+                        <li class="flex justify-between border-b pb-2">
+                            <span>Compra en Supermaxi</span>
+                            <span class="text-red-500">- $120.50</span>
+                        </li>
+                        <li class="flex justify-between border-b pb-2">
+                            <span>Depósito Nómina</span>
+                            <span class="text-green-600">+ $1,200.00</span>
+                        </li>
+                        <li class="flex justify-between pb-2">
+                            <span>Pago de Luz</span>
+                            <span class="text-red-500">- $45.80</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-8">
+                    <h4 class="font-semibold text-gray-700">Seguridad y Contacto</h4>
+                    <p class="text-sm text-gray-600 mt-2">Para mayor seguridad, activa la autenticación biométrica en tu perfil.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
-<!-- Información de Contacto -->
-<footer class="bg-blue-900 text-white mt-12 p-8">
-    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Footer -->
+<footer class="bg-blue-900 text-white mt-12 py-6">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-            <h3 class="text-xl font-bold">Contacto</h3>
+            <h3 class="text-xl font-semibold">Contacto</h3>
             <p>📞 Teléfono: (02) 123-4567</p>
             <p>📧 Email: contacto@empresa.com</p>
         </div>
         <div>
-            <h3 class="text-xl font-bold">Dirección</h3>
-            <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
+            <h3 class="text-xl font-semibold">Dirección</h3>
             <p>📍 Dirección: Av. Siempre Viva 123, Quito, Ecuador</p>
+            <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
         </div>
         <div>
-            <h3 class="text-xl font-bold">Ubicación</h3>
-            <iframe class="w-full h-40" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.575648826755!2d-99.13320868459144!3d19.43260718688692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3315e1f5d7%3A0x75f20b71c3d1a927!2sAv.%20Reforma%20123%2C%20Ciudad%20de%20M%C3%A9xico!5e0!3m2!1sen!2smx!4v1628162139175!5m2!1sen!2smx" allowfullscreen="" loading="lazy"></iframe>
+            <h3 class="text-xl font-semibold">Ubicación</h3>
+            <iframe class="w-full h-40 mt-4" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.575648826755!2d-99.13320868459144!3d19.43260718688692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3315e1f5d7%3A0x75f20b71c3d1a927!2sAv.%20Reforma%20123%2C%20Ciudad%20de%20M%C3%A9xico!5e0!3m2!1sen!2smx!4v1628162139175!5m2!1sen!2smx" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
+
+
+
+
+
