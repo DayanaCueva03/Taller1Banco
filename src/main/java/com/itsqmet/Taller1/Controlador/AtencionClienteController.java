@@ -16,11 +16,11 @@ public class AtencionClienteController {
     // Mapea la URL "/atencionCliente" y retorna la vista correspondiente
     @GetMapping("/informacionCliente")
     public String mostrarFormulario() {
-        return "pages/informacionCliente";  // Nombre de la vista HTML sin espacio adicional
+        return "Pages/informacionCliente";  // Nombre de la vista HTML sin espacio adicional
     }
 
     // Mapea la URL "/atencionCliente" para procesar el formulario y mostrar el mensaje de confirmación
-    @PostMapping("/")
+    /*@PostMapping("/")
     public String procesarMensaje(
             @RequestParam String nombre,
             @RequestParam String email,
@@ -28,5 +28,5 @@ public class AtencionClienteController {
             Model model) {
         // Retornar la vista de confirmación
         return "pages/informacionCliente";  // Página de confirmación correctamente mapeada
-    }
+    }*/
 }
