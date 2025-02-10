@@ -22,12 +22,8 @@ public class AtencionClienteController {
     // Mapea la URL "/atencionCliente" para procesar el formulario y mostrar el mensaje de confirmación
     /*@PostMapping("/")
     public String procesarMensaje(
-
             @RequestParam String nombre,
-            @Re@RequestParam String apellido,
             @RequestParam String email,
-            @RequestParam String telefono,
-            @RequestParam String direccion,
             @RequestParam String mensaje,
             Model model) {
         // Retornar la vista de confirmación
