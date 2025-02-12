@@ -10,18 +10,21 @@
 <body class="bg-gradient-to-r via-indigo-500 ">
 
 <!-- Navbar -->
-<nav class="bg-gradient-to-r from-blue-900 to-indigo-800 p-6 shadow-xl">
-    <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-extrabold text-white">Prestabank</h1>
-        <ul class="flex space-x-8 text-white font-semibold">
-            <li><a href="/index" class="hover:text-gray-200 transition-colors">Inicio</a></li>
-            <li><a href="#mision" class="hover:text-gray-200 transition-colors">Misión</a></li>
-            <li><a href="#contacto" class="hover:text-gray-200 transition-colors">Contacto</a></li>
+<nav class="bg-blue-900 p-4 text-white shadow-md">
+    <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Prestabank</h1>
+        <ul class="flex gap-6">
+            <li><a href="#" class="hover:text-gray-300 transition-colors">Inicio</a></li>
+            <li><a th:href="@{formulario}" class="hover:text-gray-300 transition-colors">Formulario Empleados</a></li>
+            <li><a th:href="@{registroCuenta}" class="hover:text-gray-300 transition-colors">Registro Cuenta</a></li>
+            <li><a href="#contacto" class="hover:text-gray-300 transition-colors">Contacto</a></li>
+            <li><a th:href="@{atencionCliente}" class="hover:text-gray-300 transition-colors">Atencion a Clientes</a></li>
+            <li><a th:href="@{informacionCliente}" class="hover:text-gray-300 transition-colors">Informacion del Cliente</a></li>
         </ul>
     </div>
 </nav>
 
-<div class="container mx-auto mt-12 p-8 bg-black-100 rounded-lg shadow-xl max-w-screen-xl">
+<div class="container mx-auto mt-12 p-8 bg-gray-100 rounded-lg shadow-xl max-w-screen-xl">
 
     <!-- Título principal -->
     <div class="text-center mb-8">
@@ -30,7 +33,7 @@
     </div>
 
     <!-- Tarjetas de información -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" th:each="dato : ${datos}">
+    < <div class="grid grid-cols-1 md:grid-cols-3 gap-8" th:each="dato : ${datos}">
 
     <!-- Saldo Actual -->
     <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
@@ -42,8 +45,8 @@
     <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
         <h4 class="text-2xl font-semibold text-blue-800">Historial</h4>
         <div class="mt-4">
-            <p><strong class="text-blue-600">Última Transacción:</strong><span></span></p>
-            <p><strong class="text-blue-600">Fecha:</strong><span></span></p>
+            <p><strong class="text-blue-600">Última Transacción:</strong><span class="font-bold"  th:text="' $' + ${dato.monto}"></span></p>
+            <p><strong class="text-blue-600">Fecha:</strong><span th:text="' '+${dato.fechaMovimiento}"></span></p>
         </div>
     </div>
 
@@ -87,8 +90,8 @@
                     <h4 class="font-semibold text-gray-700">Últimos Movimientos</h4>
                     <ul class="space-y-4 mt-4 text-sm text-gray-600">
                         <li class="flex justify-between border-b pb-2">
-                            <span></span>
-                            <span class="text-red-500"></span>
+                            <span th:text="${dato.descripcion}"></span>
+                            <span class="text-red-500" th:text="' - $' + ${dato.monto}"></span>
                         </li>
                     </ul>
                 </div>
@@ -97,20 +100,22 @@
                 <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div class="bg-white p-6 rounded-lg shadow-xl w-96">
                         <h3 class="text-2xl font-bold text-blue-800 mb-4">Formulario de Transferencia</h3>
-                        <form @submit.prevent="procesarTransferencia">
+
+                        <form>
                             <div class="mb-4">
-                                <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
+                                <label for="cuentaDestino" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
                                 <select id="cuentaDestino" name="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2">
-                                    <option placeholder="Seleccione una cuenta">Seleccione una cuenta</option>
+                                    <option value="">Seleccione una cuenta</option> <!-- Opción por defecto -->
                                     <option th:each="cuenta : ${cuentas}" th:value="${cuenta.numeroCuenta}" th:text="${cuenta.numeroCuenta}">
-                                    <input type="text" th:text="${cuenta.cuentaId}">
+                                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.cuentaId}">
+                                        <!-- El texto dentro del option será el número de cuenta -->
                                     </option>
                                 </select>
                             </div>
 
                             <div class="mb-4">
-                                <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
-                                <input type="text" id="cuentaOrigen" class="w-full p-3 border border-gray-300 rounded-md mt-2">
+                                <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
+                                <input type="text" id="cuentaOrigen" v-model="cuentaOrigen" class="w-full p-3 border border-gray-300 rounded-md mt-2" disabled>
                             </div>
 
                             <div class="mb-4">
