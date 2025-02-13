@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form - PrestaBank</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #007BFF, #004A99);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      width: 800px;
+      height: 500px;
+      max-width: 90%;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .left {
+      width: 50%;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .form {
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .form h1 {
+      text-align: center;
+      color: #007BFF;
+      margin-bottom: 20px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .input-block {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .input:focus {
+      border-color: #007BFF;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    label {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888;
+      font-size: 14px;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .input:focus + label,
+    .input:not(:placeholder-shown) + label {
+      top: 0;
+      font-size: 12px;
+      color: #007BFF;
+      background: #fff;
+      padding: 0 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .forgot {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #007BFF;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .forgot:hover {
+      color: #0056b3;
+    }
+
+    .register {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .register a {
+      color: #007BFF;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .register a:hover {
+      color: #0056b3;
+    }
+
+    .right {
+      width: 50%;
+      background: url('https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80') no-repeat center center/cover;
+    }
+
+    #error-msg {
+      color: #ff4444;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+      display: none;
+    }
+    /* From Uiverse.io by niat786 */
+button {
+ border: none;
+ color: #fff;
+ background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+ border-radius: 20px;
+ background-size: 100% auto;
+ font-family: inherit;
+ font-size: 17px;
+ padding: 0.6em 1.5em;
+}
+
+button:hover {
+ background-position: right center;
+ background-size: 200% auto;
+ -webkit-animation: pulse 2s infinite;
+ animation: pulse512 1.5s infinite;
+}
+
+@keyframes pulse512 {
+ 0% {
+  box-shadow: 0 0 0 0 #05bada66;
+ }
+
+ 70% {
+  box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+ }
+
+ 100% {
+  box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+ }
+}
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="left">
+    <div class="form">
+      <h1>Iniciar Sesión</h1>
+
+      <form id="login-form" action="#" method="post">
+        <div class="input-block">
+          <input type="email" id="email" class="input" placeholder=" " required>
+          <label for="email">Correo Electrónico</label>
+        </div>
+
+        <div class="input-block">
+          <input type="password" id="password" class="input" placeholder=" " required>
+          <label for="password">Contraseña</label>
+        </div>
+
+        <button type="submit">Iniciar Sesión</button>
+        <div id="error-msg">Por favor, completa todos los campos.</div>
+      </form>
+
+      <div class="register">
+        <p>¿No tienes cuenta? <a href="#">Regístrate</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="right"></div>
+</div>
+
+<script>
+  // Validación básica del formulario
+  document.getElementById('login-form').addEventListener('submit', function (event) {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const errorMsg = document.getElementById('error-msg');
+
+    if (email === '' || password === '') {
+      event.preventDefault(); // Evita que el formulario se envíe
+      errorMsg.style.display = 'block'; // Muestra el mensaje de error
+    } else {
+      errorMsg.style.display = 'none'; // Oculta el mensaje de error
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -14,15 +14,15 @@
         <h1 class="text-3xl font-bold">Prestabank</h1>
         <ul class="flex gap-6">
             <li><a href="#" class="hover:text-gray-300 transition-colors">Inicio</a></li>
-            <li><a th:href="@{formulario}" class="hover:text-gray-300 transition-colors">Formulario Empleados</a></li>
             <li><a th:href="@{registroCuenta}" class="hover:text-gray-300 transition-colors">Registro Cuenta</a></li>
             <li><a href="#contacto" class="hover:text-gray-300 transition-colors">Contacto</a></li>
-            <li><a th:href="@{atencionCliente}" class="hover:text-gray-300 transition-colors">Atencion a Clientes</a></li>
+            <li><a th:href="@{/login}" class="hover:text-gray-300 transition-colors">Login</a></li>
+            <li><a th:href="@{/AgregarAsesores}" class="hover:text-gray-300 transition-colors">Asesores</a></li>
+
             <li><a th:href="@{informacionCliente}" class="hover:text-gray-300 transition-colors">Informacion del Cliente</a></li>
         </ul>
     </div>
 </nav>
-
 
 <!-- Main modal -->
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center hidden">
@@ -43,14 +43,13 @@
                 <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                     Tu dinero en las mejores manos.
                 </p>
-                <!-- Contenedor de la imagen con clases flex para centrar -->
                 <div class="flex justify-center">
                     <img src="imagenes/images.jpg" class="w-auto h-70 object-cover mt-4 rounded-lg" alt="dinero">
                 </div>
             </div>
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <button id="accept-btn" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
-                 </div>
+            </div>
         </div>
     </div>
 </div>
@@ -71,10 +70,7 @@
     </div>
 </section>
 
-
-
-
-
+<!-- Servicios Section -->
 <section id="servicios" class="bg-gray-50 text-center py-20">
     <h2 class="text-3xl font-bold text-blue-900">Nuestros Servicios</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-8 mt-6">
@@ -101,32 +97,23 @@
     </div>
 </section>
 
-
-<br>
 <!-- Nueva Sección Mejorada con Animaciones y Efectos -->
 <section class="bg-gradient-to-r from-blue-900 to-blue-700 py-20 relative overflow-hidden">
-    <!-- Fondo animado -->
     <div class="absolute inset-0 flex items-center justify-center">
         <div class="animate-pulse w-64 h-64 bg-blue-800 rounded-full opacity-20"></div>
         <div class="animate-ping w-32 h-32 bg-blue-600 rounded-full absolute opacity-30"></div>
     </div>
-
     <div class="container mx-auto px-6 relative z-10">
         <div class="flex flex-col md:flex-row items-center">
-            <!-- Texto y Botón -->
             <div class="md:w-1/2 text-center md:text-left">
-                <h2 class="text-4xl font-bold text-white mb-6 animate-fade-in-up">
-                    Tu Futuro Financiero Comienza Aquí
-                </h2>
+                <h2 class="text-4xl font-bold text-white mb-6 animate-fade-in-up">Tu Futuro Financiero Comienza Aquí</h2>
                 <p class="text-gray-200 mb-8 text-lg animate-fade-in-up delay-100">
-                    En Prestabank, estamos comprometidos a ayudarte a alcanzar tus metas financieras. Con nuestra amplia gama de productos y servicios, puedes estar seguro de que tu dinero está en las mejores manos.
+                    En Prestabank, estamos comprometidos a ayudarte a alcanzar tus metas financieras.
                 </p>
                 <a href="#servicios" class="inline-block bg-white text-blue-900 px-8 py-4 rounded-full font-semibold hover:bg-blue-100 hover:text-blue-900 transition-all transform hover:scale-105 animate-fade-in-up delay-200">
                     Descubre Más
                 </a>
             </div>
-
-            <!-- Imagen con efecto flotante -->
             <div class="md:w-1/2 mt-12 md:mt-0 animate-float">
                 <img src="imagenes/web.png" alt="Finanzas" class="rounded-lg shadow-2xl transform hover:scale-105 transition-transform">
             </div>
@@ -134,24 +121,18 @@
     </div>
 </section>
 
-
 <!-- Sección: ¿Buscas algo más? -->
 <section class="bg-white py-20">
     <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-blue-900 text-center mb-12">¿Buscas algo más?</h2>
-        <p class="text-gray-700 text-center mb-16 text-lg">
-            Tenemos otras opciones que pueden interesarte.
-        </p>
+        <p class="text-gray-700 text-center mb-16 text-lg">Tenemos otras opciones que pueden interesarte.</p>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Tarjeta 1: Cuenta Transaccional -->
             <div class="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow transform hover:scale-105">
                 <div class="flex items-center justify-center mb-6">
                     <img src="imagenes/banco.jpg" alt="Icono Cuenta Transaccional" class="w-26 h-26">
                 </div>
                 <h3 class="text-xl font-semibold text-blue-900 mb-4">Cuenta Transaccional</h3>
-                <p class="text-gray-700 mb-4">
-                    En línea. Accede a tu dinero, transfiere y paga con la mayor seguridad y tecnología.
-                </p>
+                <p class="text-gray-700 mb-4">En línea. Accede a tu dinero, transfiere y paga con la mayor seguridad y tecnología.</p>
                 <ul class="text-gray-600 mb-6">
                     <li class="mb-2">Abre tu cuenta en 10 minutos.</li>
                     <li class="mb-2">Sin restricciones.</li>
@@ -163,16 +144,12 @@
                     </svg>
                 </a>
             </div>
-
-            <!-- Tarjeta 2: Cuenta Ahorro Flexible -->
             <div class="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow transform hover:scale-105">
                 <div class="flex items-center justify-center mb-6">
                     <img src="imagenes/seguro.jpg" alt="Icono Cuenta Ahorro" class="w-26 h-26">
                 </div>
                 <h3 class="text-xl font-semibold text-blue-900 mb-4">Cuenta Ahorro Flexible</h3>
-                <p class="text-gray-700 mb-4">
-                    En línea. Ver crecer tu dinero todos los días. Logra tus metas y retira tu dinero cuando lo necesites.
-                </p>
+                <p class="text-gray-700 mb-4">En línea. Ver crecer tu dinero todos los días. Logra tus metas y retira tu dinero cuando lo necesites.</p>
                 <ul class="text-gray-600 mb-6">
                     <li class="mb-2">Sin restricciones.</li>
                     <li class="mb-2">Tasa de interés competitiva.</li>
@@ -184,16 +161,12 @@
                     </svg>
                 </a>
             </div>
-
-            <!-- Tarjeta 3: Plazodolar -->
             <div class="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow transform hover:scale-105">
                 <div class="flex items-center justify-center mb-6">
                     <img src="imagenes/chica.jpg" alt="Icono Inversión" class="w-26 h-26">
                 </div>
                 <h3 class="text-xl font-semibold text-blue-900 mb-4">Plazodolar</h3>
-                <p class="text-gray-700 mb-4">
-                    Desde $500. Con tasa hasta del 7,6%. Elige el monto y el plazo, y deposita desde $500 con un plazo mínimo de 31 días.
-                </p>
+                <p class="text-gray-700 mb-4">Desde $500. Con tasa hasta del 7,6%. Elige el monto y el plazo, y deposita desde $500 con un plazo mínimo de 31 días.</p>
                 <ul class="text-gray-600 mb-6">
                     <li class="mb-2">Inversión segura.</li>
                     <li class="mb-2">Rentabilidad garantizada.</li>
@@ -209,65 +182,100 @@
     </div>
 </section>
 
+<!-- Chatbot -->
+<div id="chatbot-container" class="fixed bottom-4 right-4 w-96 bg-white shadow-lg rounded-lg overflow-hidden hidden">
+    <div class="bg-blue-900 text-white p-4 flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Asistente Virtual</h3>
+        <button id="close-chatbot-btn" class="text-white hover:text-gray-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+    <div id="chatbot-messages" class="p-4 h-80 overflow-y-auto bg-gray-50">
+        <div class="mb-4">
+            <p class="text-sm text-gray-700 bg-blue-100 p-3 rounded-lg">Hola, soy tu asistente virtual. ¿En qué puedo ayudarte hoy?</p>
+        </div>
+    </div>
+    <div class="p-4 bg-gray-100">
+        <input id="chatbot-input" type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Escribe tu mensaje...">
+    </div>
+</div>
 
-
-<!-- Animaciones personalizadas con Tailwind CSS -->
-<style>
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    .animate-fade-in-up {
-        animation: fadeInUp 1s ease-out;
-    }
-
-    .animate-float {
-        animation: float 3s ease-in-out infinite;
-    }
-
-    .delay-100 {
-        animation-delay: 0.1s;
-    }
-
-    .delay-200 {
-        animation-delay: 0.2s;
-    }
-</style>
-
+<!-- Botón para abrir el chatbot -->
+<button id="open-chatbot-btn" class="fixed bottom-4 right-4 bg-blue-900 text-white p-4 rounded-full shadow-lg hover:bg-blue-800 transition-colors">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+    </svg>
+</button>
+<!-- Footer -->
 <footer id="contacto" class="bg-blue-900 text-white text-center py-6 mt-10">
     <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
     <p>Dirección: Av. Siempre Viva 123, Quito, Ecuador | Teléfono: (02) 123-4567</p>
 </footer>
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 <script>
-    window.onload = function() {
-        document.getElementById('default-modal').classList.remove('hidden');
-    }
-    document.getElementById('close-modal-btn').addEventListener('click', function() {
-        document.getElementById('default-modal').classList.add('hidden');
+    // Funcionalidad del chatbot
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const openChatbotBtn = document.getElementById('open-chatbot-btn');
+    const closeChatbotBtn = document.getElementById('close-chatbot-btn');
+    const chatbotInput = document.getElementById('chatbot-input');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+
+    // Abrir el chatbot
+    openChatbotBtn.addEventListener('click', () => {
+        chatbotContainer.classList.remove('hidden');
     });
-    document.getElementById('accept-btn').addEventListener('click', function() {
-        document.getElementById('default-modal').classList.add('hidden');
+
+    // Cerrar el chatbot
+    closeChatbotBtn.addEventListener('click', () => {
+        chatbotContainer.classList.add('hidden');
+    });
+
+    // Función para agregar mensajes al chat
+    function addMessage(sender, message, isUser = false) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('mb-4', isUser ? 'text-right' : 'text-left');
+        messageElement.innerHTML = `<p class="text-sm ${isUser ? 'text-white bg-blue-700' : 'text-gray-700 bg-blue-100'} p-3 rounded-lg">${message}</p>`;
+        chatbotMessages.appendChild(messageElement);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+   // Función para manejar las respuestas del chatbot
+function handleUserMessage(message) {
+    let lowerMessage = message.toLowerCase();
+
+    if (lowerMessage.includes('crear cuenta')) {
+        addMessage('bot', 'Para crear una cuenta en Prestabank, sigue estos pasos:<br>1. Visita nuestra página de registro.<br>2. Completa el formulario con tus datos.<br>3. Verifica tu identidad.<br>4. ¡Listo! Tu cuenta será activada en minutos.');
+
+    } else if (lowerMessage.includes('más información')) {
+        addMessage('bot', 'Un asesor se contactará contigo en breve para brindarte más información. ¡Gracias!');
+
+    } else if (lowerMessage.includes('beneficios')) {
+        addMessage('bot', '¡Ser cliente de Prestabank tiene grandes beneficios!<br>✨ Acumula millas por cada compra y canjéalas por viajes gratuitos.<br>💳 Accede a tarjetas de crédito con tasas preferenciales.<br>📈 Invierte con nosotros y obtén rendimientos exclusivos.<br>📱 Gestiona todo desde nuestra app segura y fácil de usar.');
+
+    } else {
+        addMessage('bot', 'Gracias por tu mensaje. ¿Necesitas ayuda con algo más?');
+    }
+}
+
+    // Enviar mensaje
+    chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && chatbotInput.value.trim() !== '') {
+            const userMessage = chatbotInput.value.trim();
+            chatbotInput.value = '';
+
+            // Agregar mensaje del usuario
+            addMessage('user', userMessage, true);
+
+            // Responder automáticamente después de 1 segundo
+            setTimeout(() => {
+                handleUserMessage(userMessage);
+            }, 1000);
+        }
     });
 </script>
-
-
 </body>
 </html>

@@ -85,4 +85,17 @@ public class RegistroCuentaController {
         return "Pages/confirmarCuenta";
     }
 
+
+    @GetMapping("/login")
+    public String mostrarLogin() {
+        return "pages/login";
+    }
+
+    @GetMapping("/AgregarAsesores")
+    public String llamarAsesores() {
+        return "pages/AgregarAsesores";
+    }
+
+
+
 }
