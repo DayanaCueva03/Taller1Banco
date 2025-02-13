@@ -9,13 +9,16 @@
 <body class="flex flex-col min-h-screen bg-gradient-to-br from-blue-900 via-blue-500 to-blue-400">
 
 <!-- Navbar -->
-<nav class="bg-blue-700 text-white py-4 px-6 shadow-md">
-  <div class="container mx-auto flex justify-between items-center">
-    <a href="#" class="text-2xl font-semibold">Prestabank</a>
-    <ul class="flex space-x-6">
-      <li><a href="#" class="hover:underline">Inicio</a></li>
-      <li><a href="#" class="hover:underline">Servicios</a></li>
-      <li><a href="#" class="hover:underline">Contacto</a></li>
+<nav class="bg-blue-900 p-4 text-white shadow-md">
+  <div class="flex justify-between items-center">
+    <h1 class="text-3xl font-bold">Prestabank</h1>
+    <ul class="flex gap-6">
+      <li><a href="#" class="hover:text-gray-300 transition-colors">Inicio</a></li>
+      <li><a th:href="@{formulario}" class="hover:text-gray-300 transition-colors">Formulario Empleados</a></li>
+      <li><a th:href="@{registroCuenta}" class="hover:text-gray-300 transition-colors">Registro Cuenta</a></li>
+      <li><a href="#contacto" class="hover:text-gray-300 transition-colors">Contacto</a></li>
+      <li><a th:href="@{atencionCliente}" class="hover:text-gray-300 transition-colors">Atencion a Clientes</a></li>
+      <li><a th:href="@{informacionCliente}" class="hover:text-gray-300 transition-colors">Informacion del Cliente</a></li>
     </ul>
   </div>
 </nav>
