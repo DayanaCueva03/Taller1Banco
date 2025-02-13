@@ -4,13 +4,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/admin")
 public class AtencionClienteController {
+    @GetMapping
+    public String vistaAdmin() {
+        return "/index";
+    }
+
+
     @GetMapping("/index")
     public String vista() {
-        return "/index";
+        return "pages/confirmar";
     }
 
     // Mapea la URL "/atencionCliente" y retorna la vista correspondiente

@@ -28,7 +28,7 @@ public class UserController {
     public String registrarUsuario(@RequestParam(required = false) Long id,
                                    @RequestParam String username,
                                    @RequestParam String password,
-                                   @RequestParam("id") Long clienteID,
+                                   @RequestParam Long clienteID,
                                    @RequestParam(required = false) Rol rol) throws Exception {
         usuarioService.registrarUsuario(id, username, password, clienteID, rol);
         return "redirect:/RegistroUser";

@@ -34,15 +34,15 @@
             <div class="flex flex-col md:flex-row gap-6 items-center justify-center">
                 <!-- Formulario -->
                 <div class="max-w-2xl bg-white p-8 rounded-lg shadow-lg">
-                    <form th:action="@{/RegistroCuenta}" method="post" >
-                        <input type="text" id="clienteId" name="clienteId" th:value="${param.id}">
+                    <form th:action="@{/guardarUsuario}" th:object="${cuenta}" method="post">
+                        <input type="hidden" id="id" name="id" th:value="${param.id}">
                         <div class="mb-6">
                             <label for="nombre" class="block text-sm font-medium text-gray-700">Usuario</label>
-                            <input type="text" id="nombre" name="nombre" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                            <input type="text" th:field="*{username}" id="nombre" name="nombre" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
                         </div>
                         <div class="mb-6">
                             <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-                            <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+                            <input th:field="*{password}" type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
                         </div>
                         <div class="mb-6">
                             <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmar Contraseña</label>
