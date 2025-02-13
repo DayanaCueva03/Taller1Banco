@@ -1,8 +1,10 @@
 package com.itsqmet.Taller1.Service;
 
 import com.itsqmet.Taller1.Entidad.InformacionClienteDTO;
+import com.itsqmet.Taller1.Entidad.Transacciones;
 import com.itsqmet.Taller1.Repositorio.ClienteRepository;
 import com.itsqmet.Taller1.Repositorio.CuentaRepository;
+import com.itsqmet.Taller1.Repositorio.TransaccionesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.util.List;
 public class ClienteServicio {
     @Autowired
     ClienteRepository clienteRepository;
+    @Autowired
+    TransaccionesRepository transaccionesRepository;
 
     public InformacionClienteDTO buscarCuentaReciente(Long id) {
         List<Object[]> datos = clienteRepository.buscarCuentaReciente(id);
@@ -26,7 +30,9 @@ public class ClienteServicio {
         }
         return null;
     }
-
+     public void guardarTransaccion(Transacciones transacciones){
+         transaccionesRepository.save(transacciones);
+     }
 
     //Metodo para extraer la data
     private InformacionClienteDTO extraerInformacion(Object[] registros) {
