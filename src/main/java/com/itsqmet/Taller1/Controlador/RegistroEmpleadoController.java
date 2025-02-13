@@ -12,4 +12,10 @@ public class RegistroEmpleadoController {
     public String mostrarFormulario() {
         return "Pages/registroEmpleado";  // Asegúrate de que el archivo HTML está en templates/Pages/
     }
+
+    // Mostrar la página de login
+    @GetMapping("/login")
+    public String mostrarLogin() {
+        return "login";  // Retorna la vista login.html en templates/
+    }
 }
