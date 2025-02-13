@@ -69,9 +69,6 @@ public class CuentaServicio {
         if (registros.length > 1) informacion.setCuentaId((Long) registros[1]);
         return informacion;
     }
-    public Cuenta buscarPorId(Long id) {
-        return cuentaRepository.findById(id).orElse(null);
-    }
 
 
 

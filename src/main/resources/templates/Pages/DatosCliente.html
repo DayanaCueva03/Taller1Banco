@@ -97,39 +97,40 @@
                 <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div class="bg-white p-6 rounded-lg shadow-xl w-96">
                         <h3 class="text-2xl font-bold text-blue-800 mb-4">Formulario de Transferencia</h3>
-                        <form @submit.prevent="procesarTransferencia">
+                        <form th:action="@{/GuardarTransaccion(id=${datos.clienteId})}" method="post" th:object="${trasaccion}">
                             <div class="mb-4">
                                 <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
-                                <select id="cuentaDestino" name="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2">
-                                    <option placeholder="Seleccione una cuenta">Seleccione una cuenta</option>
-                                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.numeroCuenta}" th:text="${cuenta.numeroCuenta}">
-                                    <input type="text" th:text="${cuenta.cuentaId}">
-                                    </option>
+                                <select id="cuentaOrigen" name="cuentaOrigenId" class="w-full p-3 border border-gray-300 rounded-md mt-2" required
+                                        onchange="document.getElementById('cuentaOrigenNumero').value = this.options[this.selectedIndex].text;">
+                                    <option value="">Seleccione una cuenta</option>
+                                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.numeroCuenta}"></option>
                                 </select>
+
+                                <input type="hidden" id="cuentaOrigenNumero" name="cuentaOrigenNumero">
                             </div>
 
                             <div class="mb-4">
-                                <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
-                                <input type="text" id="cuentaOrigen" class="w-full p-3 border border-gray-300 rounded-md mt-2">
+                                <label for="cuentaDestino" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
+                                <input type="text" th:field="*{CuentaDestino}" id="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
                             </div>
 
                             <div class="mb-4">
                                 <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
-                                <input type="text" id="descripcion" v-model="descripcion" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                                <input type="text" th:field="*{descripcion}" id="descripcion" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
                             </div>
 
                             <div class="mb-4">
                                 <label for="monto" class="block text-sm font-medium text-gray-700">Monto</label>
-                                <input type="number" id="monto" v-model="monto" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                                <input type="number" th:field="*{monto}" id="monto" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
                             </div>
 
                             <div class="mb-4">
                                 <label for="fechaEnvio" class="block text-sm font-medium text-gray-700">Fecha de Envío</label>
-                                <input type="date" id="fechaEnvio" v-model="fechaEnvio" class="w-full p-3 border border-gray-300 rounded-md mt-2" required :value="fechaEnvio">
+                                <input type="date" th:field="*{fechaMovimiento}" id="fechaEnvio" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
                             </div>
 
                             <div class="flex justify-end space-x-4">
-                                <button type="button" @click="closeModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
+                                <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
                                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Transferir</button>
                             </div>
                         </form>
