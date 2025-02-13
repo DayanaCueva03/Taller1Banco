@@ -2,10 +2,9 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Gestión de Clientes</title>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
     <style>
         /* Estilos básicos */
         * {
@@ -23,6 +22,8 @@
         h1, h2 {
             color: #333;
             margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 700;
         }
 
         .container {
@@ -50,44 +51,36 @@
             color: white;
         }
 
+        .button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+        }
+
         .action-buttons {
             display: flex;
             gap: 10px;
         }
 
-        /* Estilo de botones */
-        /* From Uiverse.io by niat786 */
-        .button {
-            border: none;
-            color: #fff;
-            background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
-            border-radius: 20px;
-            background-size: 100% auto;
-            font-family: inherit;
-            font-size: 17px;
-            padding: 0.6em 1.5em;
-            cursor: pointer;
+        .action-buttons a {
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: #f39c12;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
 
-        .button:hover {
-            background-position: right center;
-            background-size: 200% auto;
-            -webkit-animation: pulse 2s infinite;
-            animation: pulse512 1.5s infinite;
-        }
-
-        @keyframes pulse512 {
-            0% {
-                box-shadow: 0 0 0 0 #05bada66;
-            }
-
-            70% {
-                box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
-            }
+        .action-buttons a:hover {
+            background-color: #e67e22;
         }
 
         .transactions {
@@ -98,30 +91,45 @@
             background-color: #f9f9f9;
         }
 
-        /* Navbar */
-        nav {
-            background-color: #003366;
-            padding: 10px;
-            color: white;
-            text-align: center;
+        /* Modal Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
         }
 
-        nav a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            text-transform: uppercase;
+        .modal {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
         }
 
-        nav a:hover {
-            background-color: #0055cc;
-            transition: background-color 0.3s;
+        .modal-header {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
         }
     </style>
 </head>
 <body class="bg-gray-50">
-
-<!-- Navbar -->
 <nav class="bg-blue-900 p-4 text-white shadow-md">
     <div class="flex justify-between items-center">
         <h1 class="text-3xl font-bold">Prestabank</h1>
@@ -141,7 +149,7 @@
     <div class="action-buttons">
         <a href="#crearCliente" class="button">Crear Cliente</a>
     </div>
-
+<br>
     <h2>Clientes Registrados</h2>
     <table>
         <thead>
@@ -158,7 +166,7 @@
             <td>juanperez@example.com</td>
             <td>(123) 456-7890</td>
             <td class="action-buttons">
-                <a href="#editarCliente" class="button">Editar</a>
+                <a href="#" class="button" onclick="openModal()">Editar</a>
                 <a href="#eliminarCliente" class="button">Eliminar</a>
             </td>
         </tr>
@@ -167,13 +175,14 @@
             <td>mariagomez@example.com</td>
             <td>(987) 654-3210</td>
             <td class="action-buttons">
-                <a href="#editarCliente" class="button">Editar</a>
+                <a href="#" class="button" onclick="openModal()">Editar</a>
                 <a href="#eliminarCliente" class="button">Eliminar</a>
             </td>
         </tr>
         </tbody>
     </table>
 
+    <br>
     <div class="transactions">
         <h2>Transacciones</h2>
         <table>
@@ -202,6 +211,7 @@
         </table>
     </div>
 </div>
+<br>
 
 <h2>Asesores</h2>
 <table>
@@ -235,11 +245,60 @@
     </tbody>
 </table>
 
+<!-- Modal -->
+<div id="modal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            Seleccionar Asesor
+        </div>
+        <div class="modal-body">
+            <label for="asesorSelect" class="block mb-2 text-sm text-gray-600">Seleccione un Asesor:</label>
+            <select id="asesorSelect" class="w-full p-2 border border-gray-300 rounded">
+                <option value="">Seleccione...</option>
+                <option value="asesor1">Juan Pérez</option>
+                <option value="asesor2">Maria Gómez</option>
+                <!-- Agregar más asesores según sea necesario -->
+            </select>
+
+            <label for="descripcion" class="block mt-4 text-sm text-gray-600">Descripción del Asesor:</label>
+            <textarea id="descripcion" class="w-full p-2 border border-gray-300 rounded mt-2" rows="4" placeholder="Escriba una descripción sobre el asesor..."></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="button" onclick="closeModal()">Cancelar</button>
+            <button class="button" onclick="saveSelection()">Aceptar</button>
+        </div>
+    </div>
+</div>
+
 <!-- Footer -->
-<footer class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white mt-auto p-6 shadow-xl">    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">        <div class="text-center w-full">
-    <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
-</div>
-</div>
+<footer class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white mt-auto p-6 shadow-xl">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+        <div class="text-center w-full">
+            <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
+        </div>
+    </div>
 </footer>
+
+<script>
+    function openModal() {
+        document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+
+    function saveSelection() {
+        const selectedAsesor = document.getElementById("asesorSelect").value;
+        const descripcion = document.getElementById("descripcion").value;
+
+        if (selectedAsesor && descripcion) {
+            alert("Asesor seleccionado: " + selectedAsesor + "\nDescripción: " + descripcion);
+            closeModal();
+        } else {
+            alert("Por favor, seleccione un asesor y escriba una descripción.");
+        }
+    }
+</script>
 </body>
 </html>
