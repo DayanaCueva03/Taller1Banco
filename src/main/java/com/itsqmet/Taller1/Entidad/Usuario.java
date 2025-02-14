@@ -9,7 +9,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private Long ClienteID;  // Debe ser único para vincular cada usuario con un cliente específico
 
     @Column(unique = true, nullable = false)

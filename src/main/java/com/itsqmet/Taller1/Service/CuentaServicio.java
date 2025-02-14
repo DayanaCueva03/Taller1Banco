@@ -62,7 +62,7 @@ public class CuentaServicio {
         return registros;
     }
 
-
+//sirve para las transacciones para buscar listas con id
     private InformacionClienteDTO extraerInformacion(Object[] registros) {
         InformacionClienteDTO informacion = new InformacionClienteDTO();
         if (registros.length > 0) informacion.setNumeroCuenta((String) registros[0]);
@@ -72,7 +72,5 @@ public class CuentaServicio {
     public Cuenta buscarPorId(Long id) {
         return cuentaRepository.findById(id).orElse(null);
     }
-
-
 
 }

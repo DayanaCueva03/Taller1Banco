@@ -20,7 +20,7 @@ public class AuthUser {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, SuccesLogin successHandler) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/AgregarAsesores").hasAuthority("ROLE_ADMINISTRADOR")
+                        .requestMatchers("/AgregarAsesores").hasRole("ADMINISTRADOR")
                         .requestMatchers("/DatosCliente").authenticated()  // Esta regla debe ir primero
                         .requestMatchers("/registroCuenta/**", "/AbrirCuenta/**", "/ConfirmarCuenta/**").permitAll()
                         .anyRequest().permitAll()  // Permite todo lo demás

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        /* Estilos básicos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Estilo de botones */
+        /* From Uiverse.io by niat786 */
+        .button {
+            border: none;
+            color: #fff;
+            background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+            border-radius: 20px;
+            background-size: 100% auto;
+            font-family: inherit;
+            font-size: 17px;
+            padding: 0.6em 1.5em;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-position: right center;
+            background-size: 200% auto;
+            -webkit-animation: pulse 2s infinite;
+            animation: pulse512 1.5s infinite;
+        }
+
+        @keyframes pulse512 {
+            0% {
+                box-shadow: 0 0 0 0 #05bada66;
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+            }
+        }
+
+        .transactions {
+            margin-top: 30px;
+        }
+
+        .transactions table {
+            background-color: #f9f9f9;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #003366;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            background-color: #0055cc;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- Navbar -->
+<nav class="bg-blue-900 p-4 text-white shadow-md">
+    <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Prestabank</h1>
+        <ul class="flex gap-6">
+            <li><a href="#" class="hover:text-gray-300 transition-colors">Inicio</a></li>
+            <li><a th:href="@{registroCuenta}" class="hover:text-gray-300 transition-colors">Registro Cuenta</a></li>
+            <li><a href="#contacto" class="hover:text-gray-300 transition-colors">Contacto</a></li>
+            <li><a th:href="@{/login}" class="hover:text-gray-300 transition-colors">Login</a></li>
+            <li><a th:href="@{informacionCliente}" class="hover:text-gray-300 transition-colors">Información del Cliente</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Gestión de Clientes</h1>
+
+    <div class="action-buttons">
+        <a href="#crearCliente" class="button">Crear Cliente</a>
+    </div>
+
+    <h2>Clientes Registrados</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Juan Pérez</td>
+            <td>juanperez@example.com</td>
+            <td>(123) 456-7890</td>
+            <td class="action-buttons">
+                <a href="#editarCliente" class="button">Editar</a>
+                <a href="#eliminarCliente" class="button">Eliminar</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Maria Gómez</td>
+            <td>mariagomez@example.com</td>
+            <td>(987) 654-3210</td>
+            <td class="action-buttons">
+                <a href="#editarCliente" class="button">Editar</a>
+                <a href="#eliminarCliente" class="button">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="transactions">
+        <h2>Transacciones</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID Transacción</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>#12345</td>
+                <td>01/01/2025</td>
+                <td>$100</td>
+                <td>Completada</td>
+            </tr>
+            <tr>
+                <td>#12346</td>
+                <td>02/01/2025</td>
+                <td>$200</td>
+                <td>En proceso</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h2>Asesores</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Juan Pérez</td>
+        <td>juanperez@example.com</td>
+        <td>(123) 456-7890</td>
+        <td class="action-buttons">
+            <a href="#editarCliente" class="button">Editar</a>
+            <a href="#eliminarCliente" class="button">Eliminar</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Maria Gómez</td>
+        <td>mariagomez@example.com</td>
+        <td>(987) 654-3210</td>
+        <td class="action-buttons">
+            <a href="#editarCliente" class="button">Editar</a>
+            <a href="#eliminarCliente" class="button">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Footer -->
+<footer class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white mt-auto p-6 shadow-xl">    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">        <div class="text-center w-full">
+    <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
+</div>
+</div>
+</footer>
+</body>
+</html>

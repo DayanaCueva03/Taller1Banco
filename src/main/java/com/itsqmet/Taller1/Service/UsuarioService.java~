@@ -5,7 +5,9 @@ import com.itsqmet.Taller1.Repositorio.userRepository;
 import com.itsqmet.Taller1.Rol.Rol;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -67,16 +69,18 @@ public class UsuarioService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByUsername(username);
-        if(usuario != null){
-            return new User(usuario.getUsername(),usuario.getPassword(),
-                    List.of(new SimpleGrantedAuthority("ROLE_"+usuario.getRol().toString()))
+        Usuario usuario = usuarioRepository.findByUsername(username);  // Busca el usuario en la base de datos
+        if (usuario != null) {
+            UserDetails userDetails = new User(
+                    usuario.getUsername(),
+                    usuario.getPassword(),
+                    List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString()))
             );
-
-        }else {
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
+            return userDetails;
+        } else {
             throw new UsernameNotFoundException("El usuario no existe");
         }
-
     }
 
 
