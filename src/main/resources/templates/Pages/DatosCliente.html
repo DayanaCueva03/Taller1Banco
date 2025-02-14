@@ -32,32 +32,31 @@
     <!-- Tarjetas de información -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8" th:each="dato : ${datos}">
 
-    <!-- Saldo Actual -->
-    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
-        <h4 class="text-2xl font-semibold text-blue-800">Saldo Actual</h4>
-        <p class="text-3xl font-bold text-indigo-600 mt-4" th:text="'$' + ${dato.saldo}"></p>
-    </div>
+        <!-- Saldo Actual -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+            <h4 class="text-2xl font-semibold text-blue-800">Saldo Actual</h4>
+            <p class="text-3xl font-bold text-indigo-600 mt-4">${{ saldo }}</p>
+        </div>
 
-    <!-- Historial de Transacciones -->
-    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
-        <h4 class="text-2xl font-semibold text-blue-800">Historial</h4>
-        <div class="mt-4">
-            <p><strong class="text-blue-600">Última Transacción:</strong><span></span></p>
-            <p><strong class="text-blue-600">Fecha:</strong><span></span></p>
+        <!-- Historial de Transacciones -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+            <h4 class="text-2xl font-semibold text-blue-800">Historial</h4>
+            <div class="mt-4">
+                <p><strong class="text-blue-600">Última Transacción:</strong><span class="font-bold" th:text="' $' + ${dato.monto}"></span></p>
+                <p><strong class="text-blue-600">Fecha:</strong><span th:text="' '+${dato.fechaMovimiento}"></span></p>
+            </div>
+        </div>
+
+        <!-- Depósitos, Retiros y Transacciones -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+            <h4 class="text-2xl font-semibold text-blue-800">Datos Personales</h4>
+            <div class="mt-4">
+                <p><strong class="text-green-600">Nombre:</strong> <span th:text="${dato.nombreCliente}"></span></p>
+                <p><strong class="text-red-600">Numero de Cuenta:</strong> <span th:text="${dato.numeroCuenta}"></span></p>
+                <p><strong class="text-orange-500">Tipo de Cuenta:</strong> <span th:text="${dato.tipoCuenta}"></span></p>
+            </div>
         </div>
     </div>
-
-    <!-- Depósitos, Retiros y Transacciones -->
-    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
-        <h4 class="text-2xl font-semibold text-blue-800">Datos Personales</h4>
-        <div class="mt-4">
-            <p><strong class="text-green-600">Nombre:</strong> <span th:text="${dato.nombreCliente}"></span> </p>
-            <p><strong class="text-red-600">Numero de Cuenta:</strong> <span th:text="${dato.numeroCuenta}"></span></p>
-            <p><strong class="text-orange-500">Tipo de Cuenta:</strong> <span th:text="${dato.tipoCuenta}"></span> </p>
-        </div>
-    </div>
-
-</div>
 
     <!-- Aplicación móvil -->
     <div class="relative mt-12 p-8 bg-gray-50 rounded-lg shadow-lg" th:each="dato : ${datos}">
@@ -67,7 +66,7 @@
             <div class="bg-white mt-6 p-6 rounded-lg shadow-lg">
                 <div class="text-center">
                     <p class="text-sm text-gray-600">Saldo Disponible</p>
-                    <p class="text-3xl font-bold text-blue-900"><span class="font-bold"  th:text="' $' + ${dato.saldo}"></span></p>
+                    <p class="text-3xl font-bold text-blue-900">${{ saldo }}</p>
                 </div>
                 <div class="mt-8 grid grid-cols-2 gap-4 text-center">
                     <div @click="openModal" class="bg-blue-600 text-white py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer">
@@ -79,71 +78,21 @@
                     <div class="bg-yellow-500 text-white py-3 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 cursor-pointer">
                         <p>Pagos</p>
                     </div>
-                    <div class="bg-red-500 text-white py-3 rounded-lg shadow-md hover:bg-red-600 transition duration-300 cursor-pointer">
+                    <div @click="openRetirarModal" class="bg-red-500 text-white py-3 rounded-lg shadow-md hover:bg-red-600 transition duration-300 cursor-pointer">
                         <p>Retirar</p>
                     </div>
                 </div>
+                <!-- Últimos Movimientos -->
                 <div class="mt-8">
                     <h4 class="font-semibold text-gray-700">Últimos Movimientos</h4>
                     <ul class="space-y-4 mt-4 text-sm text-gray-600">
-                        <li class="flex justify-between border-b pb-2">
-                            <span></span>
-                            <span class="text-red-500"></span>
+                        <li v-for="movimiento in movimientos" :key="movimiento.descripcion" class="flex justify-between border-b pb-2">
+                            <span>{{ movimiento.descripcion }}</span>
+                            <span :class="movimiento.monto < 0 ? 'text-red-500' : 'text-green-500'">
+                {{ movimiento.monto < 0 ? '- $' + Math.abs(movimiento.monto) : '$' + movimiento.monto }}
+            </span>
                         </li>
                     </ul>
-                </div>
-
-                <!-- Modal de Transferencia -->
-                <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div class="bg-white p-6 rounded-lg shadow-xl w-96">
-                        <h3 class="text-2xl font-bold text-blue-800 mb-4">Formulario de Transferencia</h3>
-                        <form th:action="@{/GuardarTransaccion(id=${datos.clienteId})}" method="post" th:object="${trasaccion}">
-                            <div class="mb-4">
-                                <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
-                                <select id="cuentaOrigen" name="cuentaOrigenId" class="w-full p-3 border border-gray-300 rounded-md mt-2" required
-                                        onchange="document.getElementById('cuentaOrigenNumero').value = this.options[this.selectedIndex].text;">
-                                    <option value="">Seleccione una cuenta</option>
-                                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.numeroCuenta}"></option>
-                                </select>
-
-                                <input type="hidden" id="cuentaOrigenNumero" name="cuentaOrigenNumero">
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="cuentaDestino" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
-                                <input type="text" th:field="*{CuentaDestino}" id="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
-                                <input type="text" th:field="*{descripcion}" id="descripcion" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="monto" class="block text-sm font-medium text-gray-700">Monto</label>
-                                <input type="number" th:field="*{monto}" id="monto" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="fechaEnvio" class="block text-sm font-medium text-gray-700">Fecha de Envío</label>
-                                <input type="date" th:field="*{fechaMovimiento}" id="fechaEnvio" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
-                            </div>
-
-                            <div class="flex justify-end space-x-4">
-                                <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
-                                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Transferir</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Mensaje de Éxito -->
-                <div v-if="isTransferenciaExitosa" class="fixed inset-0 bg-green-500 bg-opacity-75 flex justify-center items-center">
-                    <div class="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm w-full">
-                        <h3 class="text-2xl font-semibold text-green-600">¡Transferencia Exitosa!</h3>
-                        <p class="text-lg text-gray-600 mt-4">Tu transferencia de ${{ monto }} ha sido procesada correctamente.</p>
-                        <button @click="cerrarMensaje" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Cerrar</button>
-                    </div>
                 </div>
 
             </div>
@@ -160,24 +109,142 @@
     </div>
 </footer>
 
+<!-- Modal de Transferencia -->
+<div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-96">
+        <h3 class="text-2xl font-bold text-blue-800 mb-4">Formulario de Transferencia</h3>
+        <form @submit.prevent="procesarTransferencia">
+            <div class="mb-4">
+                <label for="cuentaDestino" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
+                <select id="cuentaDestino" v-model="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2">
+                    <option value="">Seleccione una cuenta</option>
+                    <option v-for="cuenta in cuentasDestino" :key="cuenta" :value="cuenta">{{ cuenta }}</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
+                <input type="text" id="cuentaOrigen" v-model="cuentaOrigen" class="w-full p-3 border border-gray-300 rounded-md mt-2" disabled>
+            </div>
+            <div class="mb-4">
+                <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+                <input type="text" id="descripcion" v-model="descripcion" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+            </div>
+            <div class="mb-4">
+                <label for="monto" class="block text-sm font-medium text-gray-700">Monto</label>
+                <input type="number" id="monto" v-model="monto" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+            </div>
+            <div class="mb-4">
+                <label for="fechaEnvio" class="block text-sm font-medium text-gray-700">Fecha de Envío</label>
+                <input type="date" id="fechaEnvio" v-model="fechaEnvio" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button type="button" @click="closeModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Transferir</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal de Retirar -->
+<div v-if="isRetirarModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-96">
+        <h3 class="text-2xl font-bold text-blue-800 mb-4">Retirar Dinero</h3>
+        <form @submit.prevent="retirarDinero">
+            <div class="mb-4">
+                <label for="montoRetiro" class="block text-sm font-medium text-gray-700">Monto a Retirar</label>
+                <input type="number" id="montoRetiro" v-model="montoRetiro" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button type="button" @click="closeRetirarModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Retirar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal de Éxito (Retiro) -->
+<div v-if="isRetiroExitoso" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-96 text-center">
+        <h3 class="text-2xl font-semibold text-green-600">¡Retiro Exitoso!</h3>
+        <p class="text-lg text-gray-600 mt-4">Has retirado ${{ montoRetiro }} correctamente.</p>
+        <button @click="cerrarMensajeRetiro" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Cerrar</button>
+    </div>
+</div>
+
+<!-- Modal de Éxito (Transferencia) -->
+<div v-if="isTransferenciaExitosa" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-96 text-center">
+        <h3 class="text-2xl font-semibold text-green-600">¡Transferencia Exitosa!</h3>
+        <p class="text-lg text-gray-600 mt-4">Tu transferencia de ${{ monto }} ha sido procesada correctamente.</p>
+        <button @click="cerrarMensaje" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Cerrar</button>
+    </div>
+</div>
+
+<!-- Modal de Depositar -->
+<div v-if="isDepositarModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-96">
+        <h3 class="text-2xl font-bold text-blue-800 mb-4">Depositar Dinero</h3>
+        <form @submit.prevent="depositarDinero">
+            <div class="mb-4">
+                <label for="montoDeposito" class="block text-sm font-medium text-gray-700">Monto a Depositar</label>
+                <input type="number" id="montoDeposito" v-model="montoDeposito" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button type="button" @click="closeDepositarModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Depositar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal de Pagos -->
+<div v-if="isPagosModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-96">
+        <h3 class="text-2xl font-bold text-blue-800 mb-4">Realizar Pago</h3>
+        <form @submit.prevent="realizarPago">
+            <div class="mb-4">
+                <label for="montoPago" class="block text-sm font-medium text-gray-700">Monto a Pagar</label>
+                <input type="number" id="montoPago" v-model="montoPago" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+            </div>
+            <div class="mb-4">
+                <label for="descripcionPago" class="block text-sm font-medium text-gray-700">Descripción</label>
+                <input type="text" id="descripcionPago" v-model="descripcionPago" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button type="button" @click="closePagosModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Pagar</button>
+            </div>
+        </form>
+    </div>
+</div>
+        </form>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script>
 <script>
     const app = Vue.createApp({
         data() {
             return {
                 isModalOpen: false,
+                isRetirarModalOpen: false,
                 isTransferenciaExitosa: false,
+                isRetiroExitoso: false,
+                isDepositarModalOpen: false, // Estado para el modal de depositar
+                isPagosModalOpen: false, // Estado para el modal de pagos
                 cuentaDestino: '',
                 cuentaOrigen: '12345',
                 descripcion: '',
                 monto: '',
+                montoRetiro: '',
+                montoDeposito: '', // Monto para depositar
+                montoPago: '', // Monto para pagos
+                descripcionPago: '', // Descripción de pago
                 fechaEnvio: '',
-                cuentasDestino: [], // Lista dinámica de cuentas de destino
-            }
-        },
-        mounted() {
-            this.obtenerCuentasDestino(); // Cargar cuentas de destino desde una API o backend
-            this.setFechaEnvio();
+                saldo: 1000, // Saldo inicial
+                cuentasDestino: ['00123456789', '00234567890', '00345678901'], // Lista de cuentas de destino
+                movimientos: [] // Lista para registrar los movimientos
+            };
         },
         methods: {
             openModal() {
@@ -186,20 +253,26 @@
             closeModal() {
                 this.isModalOpen = false;
             },
-            obtenerCuentasDestino() {
-                // Simulación de llamada a API
-                setTimeout(() => {
-                    this.cuentasDestino = ['00123456789', '00234567890', '00345678901'];
-                }, 1000);
+            openRetirarModal() {
+                this.isRetirarModalOpen = true;
             },
-            setFechaEnvio() {
-                const fechaHoy = new Date();
-                const anio = fechaHoy.getFullYear();
-                const mes = (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
-                const dia = fechaHoy.getDate().toString().padStart(2, '0');
-                this.fechaEnvio = `${anio}-${mes}-${dia}`;
+            closeRetirarModal() {
+                this.isRetirarModalOpen = false;
+            },
+            openDepositarModal() {
+                this.isDepositarModalOpen = true; // Abre el modal de depositar
+            },
+            closeDepositarModal() {
+                this.isDepositarModalOpen = false; // Cierra el modal de depositar
+            },
+            openPagosModal() {
+                this.isPagosModalOpen = true; // Abre el modal de pagos
+            },
+            closePagosModal() {
+                this.isPagosModalOpen = false; // Cierra el modal de pagos
             },
             procesarTransferencia() {
+                // Simular procesamiento de transferencia
                 console.log('Transferencia procesada:', {
                     cuentaDestino: this.cuentaDestino,
                     cuentaOrigen: this.cuentaOrigen,
@@ -208,16 +281,76 @@
                     fechaEnvio: this.fechaEnvio,
                 });
 
+                // Registrar movimiento
+                this.registrarMovimiento('Transferencia', this.monto, this.descripcion);
+
+                // Cerrar modal de transferencia y mostrar modal de éxito
                 this.isModalOpen = false;
                 this.isTransferenciaExitosa = true;
             },
+            retirarDinero() {
+                if (this.montoRetiro > this.saldo) {
+                    alert("No tienes suficiente saldo para realizar este retiro.");
+                    return;
+                }
+
+                // Restar el monto retirado del saldo
+                this.saldo -= this.montoRetiro;
+
+                // Registrar movimiento
+                this.registrarMovimiento('Retiro', this.montoRetiro, 'Retiro de efectivo');
+
+                // Cerrar modal de retiro y mostrar modal de éxito
+                this.isRetirarModalOpen = false;
+                this.isRetiroExitoso = true;
+
+                // Limpiar el campo de monto retirado
+                this.montoRetiro = '';
+            },
+            depositarDinero() {
+                // Aumentar el saldo con el monto depositado
+                this.saldo += this.montoDeposito;
+
+                // Registrar movimiento
+                this.registrarMovimiento('Deposito', this.montoDeposito, 'Depósito realizado');
+
+                // Cerrar modal de depósito
+                this.isDepositarModalOpen = false;
+
+                // Limpiar el campo de monto depositado
+                this.montoDeposito = '';
+            },
+            realizarPago() {
+                // Registrar pago realizado
+                this.registrarMovimiento('Pago', this.montoPago, this.descripcionPago);
+
+                // Cerrar modal de pago
+                this.isPagosModalOpen = false;
+
+                // Limpiar los campos de pago
+                this.montoPago = '';
+                this.descripcionPago = '';
+            },
+            registrarMovimiento(tipo, monto, descripcion) {
+                const movimiento = {
+                    tipo,
+                    monto,
+                    descripcion,
+                    fecha: new Date().toLocaleString()
+                };
+                this.movimientos.push(movimiento);
+            },
             cerrarMensaje() {
                 this.isTransferenciaExitosa = false;
-            }
-        }
+            },
+            cerrarMensajeRetiro() {
+                this.isRetiroExitoso = false;
+            },
+        },
     });
 
     app.mount('body');
 </script>
+
 </body>
 </html>
