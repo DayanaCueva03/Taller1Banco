@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,15 +41,27 @@ public class ClienteController {
     public String enviarTransaccion(@RequestParam("id") Long id,
                                     @RequestParam("cuentaOrigenId") Long cuentaOrigenId,
                                     @RequestParam("cuentaOrigenNumero") String cuentaOrigenNumero,
-                                    @ModelAttribute Transacciones transacciones) {
+                                    @ModelAttribute Transacciones transacciones, RedirectAttributes redirectAttributes) {
         Cuenta cuentaOrigen = cuentaServicio.buscarPorId(cuentaOrigenId);
         if (cuentaOrigen == null) {
             throw new IllegalArgumentException("La cuenta de origen no existe.");
         }
 
-        transacciones.setCuenta(cuentaOrigen);
-        transacciones.setCuentaOrigen(cuentaOrigenNumero);  // Guardar el número de cuenta enviado desde el formulario
+        if (cuentaOrigen.getSaldo().compareTo(BigDecimal.ZERO) <= 0 ||
+                cuentaOrigen.getSaldo().compareTo(transacciones.getMonto()) < 0) {
+            // Pasar el mensaje de error al modelo para mostrarlo en el modal
+            redirectAttributes.addFlashAttribute("mensajeError", "Saldo insuficiente");
+            // Redirigir al mismo formulario, pasando el ID del cliente
+            return "redirect:/DatosCliente?id=" + id;
+        }
 
+        // Restar el monto del saldo de la cuenta
+        cuentaOrigen.setSaldo(cuentaOrigen.getSaldo().subtract(transacciones.getMonto()));
+        cuentaServicio.guardarCuenta(cuentaOrigen);
+
+
+        transacciones.setCuenta(cuentaOrigen);
+        transacciones.setCuentaOrigen(cuentaOrigenNumero);
         if (transacciones.getFechaMovimiento() == null) {
             transacciones.setFechaMovimiento(LocalDate.now());
         }

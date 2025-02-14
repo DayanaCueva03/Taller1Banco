@@ -28,8 +28,9 @@
 <div class="container mx-auto my-10 p-6 bg-white shadow-lg rounded-lg">
     <h1 class="text-2xl font-semibold mb-4">Gestión de Clientes</h1>
 
-    <div class="mb-6">
+    <div class="mb-6 flex gap-4">
         <a th:href="@{registroCuenta}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Crear Cliente</a>
+        <button class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Asignar Rol</button>
     </div>
 
     <h2 class="text-xl font-semibold mb-4">Clientes Registrados</h2>
@@ -43,8 +44,7 @@
                 <th class="p-3 border">Acciones</th>
             </tr>
             </thead>
-            <tbody id="clientesTabla">
-            </tbody>
+            <tbody id="clientesTabla"></tbody>
         </table>
     </div>
 
@@ -66,27 +66,41 @@
                 <td class="p-3 border">$100</td>
                 <td class="p-3 border">Completada</td>
             </tr>
-            <tr class="bg-gray-100 hover:bg-gray-200">
-                <td class="p-3 border">#12346</td>
-                <td class="p-3 border">02/01/2025</td>
-                <td class="p-3 border">$200</td>
-                <td class="p-3 border">En proceso</td>
-            </tr>
             </tbody>
         </table>
     </div>
+
+    <h2 class="text-xl font-semibold mt-6">Asesores</h2>
+    <div class="overflow-x-auto mt-4">
+        <table class="w-full border border-gray-300 text-left">
+            <thead class="bg-blue-600 text-white">
+            <tr>
+                <th class="p-3 border">Nombre</th>
+                <th class="p-3 border">Descripción</th>
+            </tr>
+            </thead>
+            <tbody id="asesoresTabla">
+            </tbody>
+        </table>
+    </div>
+</div>
 </div>
 
 <!-- Modal de Edición -->
 <div id="modalEditar" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
         <h2 class="text-xl font-semibold mb-4">Editar Cliente</h2>
-        <label class="block text-sm">Nombre:</label>
+
+        <label class="block text-sm">Asesor:</label>
+        <select id="editAsesor" class="w-full p-2 border border-gray-300 rounded mb-2">
+            <option value="asesor1">Asesor 1 - Experto en préstamos</option>
+            <option value="asesor2">Asesor 2 - Especialista en cuentas</option>
+        </select>
+        <p id="descripcionAsesor" class="text-sm text-gray-600 mb-4"></p>
+        <label class="block text-sm">Descripción:</label>
         <input type="text" id="editNombre" class="w-full p-2 border border-gray-300 rounded mb-2">
-        <label class="block text-sm">Email:</label>
-        <input type="email" id="editEmail" class="w-full p-2 border border-gray-300 rounded mb-2">
-        <label class="block text-sm">Teléfono:</label>
-        <input type="text" id="editTelefono" class="w-full p-2 border border-gray-300 rounded mb-2">
+
+
         <div class="flex justify-end mt-4">
             <button class="bg-gray-400 text-white px-4 py-2 rounded mr-2" onclick="cerrarModal()">Cancelar</button>
             <button class="bg-blue-600 text-white px-4 py-2 rounded" onclick="guardarEdicion()">Guardar</button>
@@ -96,22 +110,20 @@
 
 <!-- Footer -->
 <footer class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white mt-auto p-6 shadow-xl">
-    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-        <div class="text-center w-full">
-            <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
-        </div>
+    <div class="container mx-auto text-center">
+        <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
     </div>
 </footer>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         cargarClientes();
+        document.getElementById("editAsesor").addEventListener("change", actualizarDescripcionAsesor);
     });
 
     function cargarClientes() {
         const clientes = [
-            { nombre: "Juan Pérez", email: "juanperez@example.com", telefono: "(123) 456-7890" },
-            { nombre: "María López", email: "marialopez@example.com", telefono: "(987) 654-3210" }
+            { nombre: "Juan Pérez", email: "juanperez@example.com", telefono: "(123) 456-7890" }
         ];
 
         const tabla = document.getElementById("clientesTabla");
@@ -121,34 +133,17 @@
                             <td class="p-3 border">${cliente.email}</td>
                             <td class="p-3 border">${cliente.telefono}</td>
                             <td class="p-3 border flex gap-2">
-                                <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600" onclick="editarCliente('${cliente.nombre}', '${cliente.email}', '${cliente.telefono}')">Editar</button>
-                                <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700" onclick="eliminarCliente(this)">Eliminar</button>
+                                <button class="bg-yellow-500 text-white px-3 py-1 rounded" onclick="editarCliente('${cliente.nombre}', '${cliente.email}', '${cliente.telefono}')">Editar</button>
+                                <button class="bg-red-600 text-white px-3 py-1 rounded" onclick="eliminarCliente(this)">Eliminar</button>
                             </td>
                         </tr>`;
             tabla.innerHTML += fila;
         });
     }
 
-    function editarCliente(nombre, email, telefono) {
-        document.getElementById("editNombre").value = nombre;
-        document.getElementById("editEmail").value = email;
-        document.getElementById("editTelefono").value = telefono;
-        document.getElementById("modalEditar").classList.remove("hidden");
-    }
-
-    function cerrarModal() {
-        document.getElementById("modalEditar").classList.add("hidden");
-    }
-
-    function guardarEdicion() {
-        alert("Cambios guardados");
-        cerrarModal();
-    }
-
-    function eliminarCliente(button) {
-        if (confirm("¿Está seguro de eliminar este cliente?")) {
-            button.closest("tr").remove();
-        }
+    function actualizarDescripcionAsesor() {
+        const desc = document.getElementById("editAsesor").value === "asesor1" ? "Experto en préstamos" : "Especialista en cuentas";
+        document.getElementById("descripcionAsesor").innerText = desc;
     }
 </script>
 </body>

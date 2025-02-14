@@ -14,11 +14,23 @@
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-3xl font-extrabold text-white">Prestabank</h1>
         <ul class="flex space-x-8 text-white font-semibold">
-            <li><a href="#contacto" class="hover:text-gray-200 transition-colors">Cerrar Sesión</a></li>
+            <li>
+                <form th:action="@{/logout}" method="post" id="logout-form">
+                    <button type="submit" class="hover:text-gray-200 transition-colors focus:outline-none">
+                        Cerrar Sesión
+                    </button>
+                </form>
+            </li>
         </ul>
     </div>
 </nav>
-
+<!-- El Modal de error -->
+<div th:if="${mensajeError}" class="modal" style="display: block;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p th:text="${mensajeError}"></p>
+    </div>
+</div>
 <div class="container mx-auto mt-12 p-8 bg-gray-100 rounded-lg shadow-xl max-w-screen-xl">
 
     <!-- Título principal -->
@@ -33,17 +45,25 @@
         <!-- Saldo Actual -->
         <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
             <h4 class="text-2xl font-semibold text-blue-800">Saldo Actual</h4>
-            <p class="text-3xl font-bold text-indigo-600 mt-4">${{ saldo }}</p>
+            <p class="text-3xl font-bold text-indigo-600 mt-4" th:text="'$'+${dato.saldo}"></p>
         </div>
 
         <!-- Historial de Transacciones -->
         <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
             <h4 class="text-2xl font-semibold text-blue-800">Historial</h4>
-            <div class="mt-4">
-                <p><strong class="text-blue-600">Última Transacción:</strong><span class="font-bold" th:text="' $' + ${dato.monto}"></span></p>
-                <p><strong class="text-blue-600">Fecha:</strong><span th:text="' '+${dato.fechaMovimiento}"></span></p>
+            <div v-if="movimientos.length > 0" class="mt-4">
+                <p>
+                    <strong class="text-blue-600">Última Transacción:</strong>
+                    <span class="font-bold"> ${{ movimientos[movimientos.length - 1].monto }}</span>
+                </p>
+                <p>
+                    <strong class="text-blue-600">Fecha:</strong>
+                    <span>{{ movimientos[movimientos.length - 1].fecha }}</span>
+                </p>
             </div>
+            <p v-else class="text-gray-500">No hay transacciones registradas.</p>
         </div>
+
 
         <!-- Depósitos, Retiros y Transacciones -->
         <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
@@ -64,16 +84,16 @@
             <div class="bg-white mt-6 p-6 rounded-lg shadow-lg">
                 <div class="text-center">
                     <p class="text-sm text-gray-600">Saldo Disponible</p>
-                    <p class="text-3xl font-bold text-blue-900">${{ saldo }}</p>
+                    <p class="text-3xl font-bold text-blue-900" th:text="'$'+${dato.saldo}"></p>
                 </div>
                 <div class="mt-8 grid grid-cols-2 gap-4 text-center">
                     <div @click="openModal" class="bg-blue-600 text-white py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer">
                         <p>Transferir</p>
                     </div>
-                    <div class="bg-green-600 text-white py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-300 cursor-pointer">
+                    <div @click="openDepositarModal" class="bg-green-600 text-white py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-300 cursor-pointer">
                         <p>Depositar</p>
                     </div>
-                    <div class="bg-yellow-500 text-white py-3 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 cursor-pointer">
+                    <div @click="openPagosModal" class="bg-yellow-500 text-white py-3 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 cursor-pointer">
                         <p>Pagos</p>
                     </div>
                     <div @click="openRetirarModal" class="bg-red-500 text-white py-3 rounded-lg shadow-md hover:bg-red-600 transition duration-300 cursor-pointer">
@@ -107,39 +127,49 @@
     </div>
 </footer>
 
+
+
 <!-- Modal de Transferencia -->
 <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white p-6 rounded-lg shadow-xl w-96">
         <h3 class="text-2xl font-bold text-blue-800 mb-4">Formulario de Transferencia</h3>
-        <form @submit.prevent="procesarTransferencia">
-            <div class="mb-4">
-                <label for="cuentaDestino" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
-                <select id="cuentaDestino" v-model="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2">
-                    <option value="">Seleccione una cuenta</option>
-                    <option v-for="cuenta in cuentasDestino" :key="cuenta" :value="cuenta">{{ cuenta }}</option>
-                </select>
-            </div>
+        <form th:action="@{/GuardarTransaccion(id=${datos.clienteId})}" method="post" th:object="${trasaccion}">
             <div class="mb-4">
                 <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
-                <input type="text" id="cuentaOrigen" v-model="cuentaOrigen" class="w-full p-3 border border-gray-300 rounded-md mt-2" disabled>
+                <select id="cuentaOrigen" name="cuentaOrigenId" class="w-full p-3 border border-gray-300 rounded-md mt-2" required
+                        onchange="document.getElementById('cuentaOrigenNumero').value = this.options[this.selectedIndex].text;">
+                    <option value="">Seleccione una cuenta</option>
+                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.numeroCuenta}"></option>
+                </select>
+                    <input type="text" id="cuentaOrigenNumero" name="cuentaOrigenNumero">
             </div>
+
+            <div class="mb-4">
+                <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Destino</label>
+                <input type="text" th:field="*{CuentaDestino}" id="cuentaDestino" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+            </div>
+
             <div class="mb-4">
                 <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
-                <input type="text" id="descripcion" v-model="descripcion" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                <input type="text" th:field="*{descripcion}" id="descripcion" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
             </div>
+
             <div class="mb-4">
                 <label for="monto" class="block text-sm font-medium text-gray-700">Monto</label>
-                <input type="number" id="monto" v-model="monto" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                <input type="number" th:field="*{monto}" id="monto" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
             </div>
+
             <div class="mb-4">
                 <label for="fechaEnvio" class="block text-sm font-medium text-gray-700">Fecha de Envío</label>
-                <input type="date" id="fechaEnvio" v-model="fechaEnvio" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                <input type="date" th:field="*{fechaMovimiento}" id="fechaEnvio" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
             </div>
+
             <div class="flex justify-end space-x-4">
                 <button type="button" @click="closeModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Transferir</button>
             </div>
         </form>
+
     </div>
 </div>
 
