@@ -41,11 +41,19 @@
         <!-- Historial de Transacciones -->
         <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
             <h4 class="text-2xl font-semibold text-blue-800">Historial</h4>
-            <div class="mt-4">
-                <p><strong class="text-blue-600">Última Transacción:</strong><span class="font-bold" th:text="' $' + ${dato.monto}"></span></p>
-                <p><strong class="text-blue-600">Fecha:</strong><span th:text="' '+${dato.fechaMovimiento}"></span></p>
+            <div v-if="movimientos.length > 0" class="mt-4">
+                <p>
+                    <strong class="text-blue-600">Última Transacción:</strong>
+                    <span class="font-bold"> ${{ movimientos[movimientos.length - 1].monto }}</span>
+                </p>
+                <p>
+                    <strong class="text-blue-600">Fecha:</strong>
+                    <span>{{ movimientos[movimientos.length - 1].fecha }}</span>
+                </p>
             </div>
+            <p v-else class="text-gray-500">No hay transacciones registradas.</p>
         </div>
+
 
         <!-- Depósitos, Retiros y Transacciones -->
         <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
@@ -72,10 +80,10 @@
                     <div @click="openModal" class="bg-blue-600 text-white py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer">
                         <p>Transferir</p>
                     </div>
-                    <div class="bg-green-600 text-white py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-300 cursor-pointer">
+                    <div @click="openDepositarModal" class="bg-green-600 text-white py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-300 cursor-pointer">
                         <p>Depositar</p>
                     </div>
-                    <div class="bg-yellow-500 text-white py-3 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 cursor-pointer">
+                    <div @click="openPagosModal" class="bg-yellow-500 text-white py-3 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 cursor-pointer">
                         <p>Pagos</p>
                     </div>
                     <div @click="openRetirarModal" class="bg-red-500 text-white py-3 rounded-lg shadow-md hover:bg-red-600 transition duration-300 cursor-pointer">
