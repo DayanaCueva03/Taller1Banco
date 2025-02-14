@@ -24,7 +24,7 @@ public class AtencionClienteController {
     // Mapea la URL "/atencionCliente" y retorna la vista correspondiente
     @GetMapping("/informacionCliente")
     public String mostrarFormulario() {
-        return "Pages/informacionCliente";  // Nombre de la vista HTML sin espacio adicional
+        return "Pages/DatosCliente";  // Nombre de la vista HTML sin espacio adicional
     }
 
     // Mapea la URL "/atencionCliente" para procesar el formulario y mostrar el mensaje de confirmación
