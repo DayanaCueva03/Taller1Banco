@@ -20,7 +20,7 @@
 <div class="container mx-auto my-10 p-6 bg-white shadow-lg rounded-lg">
     <h2 class="text-xl font-semibold mb-4">Crear Nuevo Rol</h2>
     <div class="mb-6">
-        <a th:href="@{gestorRoles}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Retornar</a>
+        <a th:href="@{gestorRoles}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Asignar Nuevo Rol</a>
     </div>
     <form id="formNuevoRol" class="space-y-4">
         <div>
