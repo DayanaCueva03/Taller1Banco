@@ -41,16 +41,7 @@
                 <th class="p-3 border">Acciones</th>
             </tr>
             </thead>
-            <tbody>
-            <tr class="bg-gray-100 hover:bg-gray-200">
-                <td class="p-3 border">Juan Pérez</td>
-                <td class="p-3 border">juanperez@example.com</td>
-                <td class="p-3 border">(123) 456-7890</td>
-                <td class="p-3 border flex gap-2">
-                    <a href="#editarCliente" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Editar</a>
-                    <a href="#eliminarCliente" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Eliminar</a>
-                </td>
-            </tr>
+            <tbody id="clientesTabla">
             </tbody>
         </table>
     </div>
@@ -84,29 +75,23 @@
     </div>
 </div>
 
+<!-- Modal de Edición -->
+<div id="modalEditar" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+        <h2 class="text-xl font-semibold mb-4">Editar Cliente</h2>
+        <label class="block text-sm">Nombre:</label>
+        <input type="text" id="editNombre" class="w-full p-2 border border-gray-300 rounded mb-2">
+        <label class="block text-sm">Email:</label>
+        <input type="email" id="editEmail" class="w-full p-2 border border-gray-300 rounded mb-2">
+        <label class="block text-sm">Teléfono:</label>
+        <input type="text" id="editTelefono" class="w-full p-2 border border-gray-300 rounded mb-2">
+        <div class="flex justify-end mt-4">
+            <button class="bg-gray-400 text-white px-4 py-2 rounded mr-2" onclick="cerrarModal()">Cancelar</button>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded" onclick="guardarEdicion()">Guardar</button>
+        </div>
+    </div>
+</div>
 
-
-<script>
-    function openModal() {
-        document.getElementById("modal").classList.remove("hidden");
-    }
-
-    function closeModal() {
-        document.getElementById("modal").classList.add("hidden");
-    }
-
-    function saveSelection() {creo que no
-        const selectedAsesor = document.getElementById("asesorSelect").value;
-        const descripcion = document.getElementById("descripcion").value;
-
-        if (selectedAsesor && descripcion) {
-            alert("Asesor seleccionado: " + selectedAsesor + "\nDescripción: " + descripcion);
-            closeModal();
-        } else {
-            alert("Por favor, seleccione un asesor y escriba una descripción.");
-        }
-    }
-</script>
 <!-- Footer -->
 <footer class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white mt-auto p-6 shadow-xl">
     <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
@@ -115,5 +100,54 @@
         </div>
     </div>
 </footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        cargarClientes();
+    });
+
+    function cargarClientes() {
+        const clientes = [
+            { nombre: "Juan Pérez", email: "juanperez@example.com", telefono: "(123) 456-7890" },
+            { nombre: "María López", email: "marialopez@example.com", telefono: "(987) 654-3210" }
+        ];
+
+        const tabla = document.getElementById("clientesTabla");
+        clientes.forEach(cliente => {
+            let fila = `<tr class="bg-gray-100 hover:bg-gray-200">
+                            <td class="p-3 border">${cliente.nombre}</td>
+                            <td class="p-3 border">${cliente.email}</td>
+                            <td class="p-3 border">${cliente.telefono}</td>
+                            <td class="p-3 border flex gap-2">
+                                <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600" onclick="editarCliente('${cliente.nombre}', '${cliente.email}', '${cliente.telefono}')">Editar</button>
+                                <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700" onclick="eliminarCliente(this)">Eliminar</button>
+                            </td>
+                        </tr>`;
+            tabla.innerHTML += fila;
+        });
+    }
+
+    function editarCliente(nombre, email, telefono) {
+        document.getElementById("editNombre").value = nombre;
+        document.getElementById("editEmail").value = email;
+        document.getElementById("editTelefono").value = telefono;
+        document.getElementById("modalEditar").classList.remove("hidden");
+    }
+
+    function cerrarModal() {
+        document.getElementById("modalEditar").classList.add("hidden");
+    }
+
+    function guardarEdicion() {
+        alert("Cambios guardados");
+        cerrarModal();
+    }
+
+    function eliminarCliente(button) {
+        if (confirm("¿Está seguro de eliminar este cliente?")) {
+            button.closest("tr").remove();
+        }
+    }
+</script>
 </body>
 </html>
