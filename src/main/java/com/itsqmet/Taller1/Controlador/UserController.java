@@ -48,32 +48,5 @@ public class UserController {
         return "pages/login";
     }
 
-    /*@PostMapping("/login")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        RedirectAttributes redirectAttributes) {
-
-        // Intenta autenticar al usuario
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authentication = authenticationManager.authenticate(token);
-
-        // Si la autenticación es exitosa, se guarda en el contexto de seguridad
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // Obtén el usuario autenticado
-        Usuario usuario = usuarioService.obtenerUsuarioPorUsername(username);
-
-        if (usuario != null) {
-            Long clienteID = usuario.getClienteID();
-            // Redirige a la página con el clienteID
-            return "redirect:/DatosCliente?id=" + clienteID;
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Usuario no encontrado.");
-            return "redirect:/login";  // Redirige a login si no existe el usuario
-        }
-    }*/
-
-
-
 }
 

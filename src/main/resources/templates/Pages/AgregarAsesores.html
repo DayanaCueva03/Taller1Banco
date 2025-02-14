@@ -9,15 +9,17 @@
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
 <!-- Navbar -->
-<nav class="bg-blue-900 p-4 text-white shadow-md">
+<nav class="bg-gradient-to-r from-blue-900 to-indigo-800 p-6 shadow-xl">
     <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-bold">Prestabank</h1>
-        <ul class="flex gap-6">
-            <li><a href="#" class="hover:text-gray-300">Inicio</a></li>
-            <li><a th:href="@{registroCuenta}" class="hover:text-gray-300">Registro Cuenta</a></li>
-            <li><a href="#contacto" class="hover:text-gray-300">Contacto</a></li>
-            <li><a th:href="@{/login}" class="hover:text-gray-300">Login</a></li>
-            <li><a th:href="@{informacionCliente}" class="hover:text-gray-300">Información del Cliente</a></li>
+        <h1 class="text-3xl font-extrabold text-white">Prestabank</h1>
+        <ul class="flex space-x-8 text-white font-semibold">
+            <li>
+                <form th:action="@{/logout}" method="post" id="logout-form">
+                    <button type="submit" class="hover:text-gray-200 transition-colors focus:outline-none">
+                        Cerrar Sesión
+                    </button>
+                </form>
+            </li>
         </ul>
     </div>
 </nav>

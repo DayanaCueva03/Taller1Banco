@@ -8,37 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/admin")
 public class AtencionClienteController {
-    @GetMapping
-    public String vistaAdmin() {
-        return "/index";
+    @GetMapping("/")
+    public String redirectToIndex() {
+        return "redirect:/index";  // Redirige automáticamente a /index
     }
-
 
     @GetMapping("/index")
-    public String vista() {
-        return "pages/confirmar";
+    public String showIndex() {
+        return "index";  // Devuelve la vista index.html
     }
 
-    // Mapea la URL "/atencionCliente" y retorna la vista correspondiente
-    @GetMapping("/informacionCliente")
-    public String mostrarFormulario() {
-        return "Pages/informacionCliente";  // Nombre de la vista HTML sin espacio adicional
-    }
-
-    // Mapea la URL "/atencionCliente" para procesar el formulario y mostrar el mensaje de confirmación
-    /*@PostMapping("/")
-    public String procesarMensaje(
-
-            @RequestParam String nombre,
-            @Re@RequestParam String apellido,
-            @RequestParam String email,
-            @RequestParam String telefono,
-            @RequestParam String direccion,
-            @RequestParam String mensaje,
-            Model model) {
-        // Retornar la vista de confirmación
-        return "pages/informacionCliente";  // Página de confirmación correctamente mapeada
-    }*/
 }
+
+

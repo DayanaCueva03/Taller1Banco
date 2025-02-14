@@ -13,7 +13,7 @@
     <div class="flex justify-between items-center">
         <h1 class="text-3xl font-bold">Prestabank</h1>
         <ul class="flex gap-6">
-            <li><a th:href="@{/}" class="hover:text-gray-300 transition-colors">Inicio</a></li>
+            <li><a href="#" class="hover:text-gray-300 transition-colors">Inicio</a></li>
             <li><a th:href="@{registroCuenta}" class="hover:text-gray-300 transition-colors">Registro Cuenta</a></li>
             <li><a th:href="@{/login}" class="hover:text-gray-300 transition-colors">Login</a></li>
         </ul>

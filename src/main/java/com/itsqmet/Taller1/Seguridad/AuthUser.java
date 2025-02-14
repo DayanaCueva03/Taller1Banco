@@ -20,14 +20,21 @@ public class AuthUser {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, SuccesLogin successHandler) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        // Rutas solo para administrador
                         .requestMatchers("/AgregarAsesores").hasAuthority("ROLE_ADMINISTRADOR")
-                        .requestMatchers("/DatosCliente").authenticated()  // Esta regla debe ir primero
-                        .requestMatchers("/registroCuenta/**", "/AbrirCuenta/**", "/ConfirmarCuenta/**").permitAll()
-                        .anyRequest().permitAll()  // Permite todo lo demás
+
+                        // Rutas disponibles para CLIENTES y ADMINISTRADORES
+                        .requestMatchers("/DatosCliente").hasAnyAuthority("ROLE_CLIENTE", "ROLE_ADMINISTRADOR")
+
+                        // Rutas públicas (disponibles sin necesidad de autenticación)
+                        .requestMatchers("/**","/index/**", "/login", "/registroCuenta/**", "/AbrirCuenta/**", "/ConfirmarCuenta/**").permitAll()
+
+                        // Bloquea cualquier otra ruta no definida
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login").permitAll()
-                        .successHandler(successHandler)  // Usa el CustomSuccessHandler para redirigir después del login
+                        .successHandler(successHandler)
                         .failureUrl("/login?error=true")
                 )
                 .logout(logout -> logout

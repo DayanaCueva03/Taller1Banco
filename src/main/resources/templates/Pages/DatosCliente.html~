@@ -10,18 +10,11 @@
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
 <!-- Navbar -->
-<!-- Navbar -->
 <nav class="bg-gradient-to-r from-blue-900 to-indigo-800 p-6 shadow-xl">
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-3xl font-extrabold text-white">Prestabank</h1>
         <ul class="flex space-x-8 text-white font-semibold">
-            <li>
-                <form th:action="@{/logout}" method="post" id="logout-form">
-                    <button type="submit" class="hover:text-gray-200 transition-colors focus:outline-none">
-                        Cerrar Sesión
-                    </button>
-                </form>
-            </li>
+            <li><a href="#contacto" class="hover:text-gray-200 transition-colors">Cerrar Sesión</a></li>
         </ul>
     </div>
 </nav>
