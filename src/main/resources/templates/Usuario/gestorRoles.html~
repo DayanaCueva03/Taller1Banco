@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Roles - Prestabank</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+<!-- Contenedor principal -->
+<div class="container mx-auto my-10 p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-2xl font-semibold mb-4">Gestión de Roles</h1>
+
+    <h2 class="text-xl font-semibold mb-4">Roles Registrados</h2>
+    <div class="overflow-x-auto">
+        <table class="w-full border border-gray-300 text-left">
+            <thead class="bg-blue-600 text-white">
+            <tr>
+                <th class="p-3 border">ID</th>
+                <th class="p-3 border">Username</th>
+                <th class="p-3 border">Password</th>
+                <th class="p-3 border">Rol</th>
+                <th class="p-3 border">Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="rolesTabla">
+            <tr class="bg-gray-100 hover:bg-gray-200">
+                <td class="p-3 border">1</td>
+                <td class="p-3 border">admin</td>
+                <td class="p-3 border">******</td>
+                <td class="p-3 border">Administrador</td>
+                <td class="p-3 border flex gap-2">
+                    <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600" onclick="editarRol(1, 'admin', '******', 'Administrador')">Editar</button>
+                    <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700" onclick="eliminarRol(this)">Eliminar</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de Edición -->
+<div id="modalEditarRol" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+        <h2 class="text-xl font-semibold mb-4">Editar Rol</h2>
+        <label class="block text-sm">ID:</label>
+        <input type="text" id="editId" class="w-full p-2 border border-gray-300 rounded mb-2" disabled>
+        <label class="block text-sm">Username:</label>
+        <input type="text" id="editUsername" class="w-full p-2 border border-gray-300 rounded mb-2">
+        <label class="block text-sm">Password:</label>
+        <input type="password" id="editPassword" class="w-full p-2 border border-gray-300 rounded mb-2">
+        <label class="block text-sm">Rol:</label>
+        <select id="editRol" class="w-full p-2 border border-gray-300 rounded mb-2">
+            <option value="Cliente">Cliente</option>
+            <option value="Administrador">Administrador</option>
+        </select>
+        <div class="flex justify-end mt-4">
+            <button class="bg-gray-400 text-white px-4 py-2 rounded mr-2" onclick="cerrarModalRol()">Cancelar</button>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded" onclick="guardarEdicionRol()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function editarRol(id, username, password, rol) {
+        document.getElementById("editId").value = id;
+        document.getElementById("editUsername").value = username;
+        document.getElementById("editPassword").value = password;
+        document.getElementById("editRol").value = rol;
+        document.getElementById("modalEditarRol").classList.remove("hidden");
+    }
+
+    function cerrarModalRol() {
+        document.getElementById("modalEditarRol").classList.add("hidden");
+    }
+
+    function guardarEdicionRol() {
+        alert("Cambios guardados");
+        cerrarModalRol();
+    }
+
+    function eliminarRol(button) {
+        if (confirm("¿Está seguro de eliminar este rol?")) {
+            button.closest("tr").remove();
+        }
+    }
+</script>
+</body>
+</html>
