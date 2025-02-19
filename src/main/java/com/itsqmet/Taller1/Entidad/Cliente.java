@@ -15,7 +15,6 @@ public class Cliente  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
    // @Max(value = 10, message = "El número de cédula debe ser de 10 dígitos")
     @Column(unique = true)
     private String cedula;
@@ -39,11 +38,85 @@ public class Cliente  {
 
     @OneToMany(mappedBy = "cliente")
     private List<Cuenta> cuentas;
-    @OneToMany(mappedBy = "cliente")
+
+    @OneToMany(mappedBy = "clientes")
     private List<Expediente> expediente;
 
+    // Getters y setters
 
+
+    public Long getId() {
+        return id;
     }
 
-    // Getters y setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Date getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public List<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+    }
+
+    public List<Expediente> getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(List<Expediente> expediente) {
+        this.expediente = expediente;
+    }
+}
+
+
 

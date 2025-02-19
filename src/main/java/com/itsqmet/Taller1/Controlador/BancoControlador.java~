@@ -1,6 +1,6 @@
 package com.itsqmet.Taller1.Controlador;
 
-import com.itsqmet.Taller1.Entidad.Banco;
+import com.itsqmet.Taller1.Entidad.Cuenta;
 import com.itsqmet.Taller1.Service.BancoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,14 +23,14 @@ public class BancoControlador {
     }
 
     @PostMapping("/guardar")
-    public String guardarBanco(Banco banco){
-        bancoServicio.insertarEmpleado(banco);
+    public String guardarBanco(Cuenta cuenta){
+        bancoServicio.insertarEmpleado(cuenta);
         return "redirect:/empleados";
     }
 
     @GetMapping("/empleados")
     public String listaEmpleado(@RequestParam(name = "buscarEmpleado", required = false, defaultValue = "") String buscarEmpleado, Model model) {
-        List<Banco> empleado = bancoServicio.buscarPorNombre(buscarEmpleado);
+        List<Cuenta> empleado = bancoServicio.buscarPorNombre(buscarEmpleado);
         model.addAttribute("buscarEmpleado", buscarEmpleado);
         model.addAttribute("banco", empleado);
         return "/pages/listaEmpleados";
@@ -38,7 +38,7 @@ public class BancoControlador {
 
     @GetMapping("/formulario" )
     public String mostrarFormulario(Model model) {
-        model.addAttribute("empleados", new Banco());
+        model.addAttribute("empleados", new Cuenta());
         return "pages/formulario";
     }
 }
