@@ -3,10 +3,15 @@ package com.itsqmet.Taller1.Service;
 import com.itsqmet.Taller1.Entidad.Cliente;
 import com.itsqmet.Taller1.Entidad.Cuenta;
 import com.itsqmet.Taller1.Entidad.InformacionClienteDTO;
+import com.itsqmet.Taller1.Entidad.Transacciones;
 import com.itsqmet.Taller1.Repositorio.ClienteRepository;
 import com.itsqmet.Taller1.Repositorio.CuentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -61,7 +66,6 @@ public class CuentaServicio {
         }
         return registros;
     }
-
 //sirve para las transacciones para buscar listas con id
     private InformacionClienteDTO extraerInformacion(Object[] registros) {
         InformacionClienteDTO informacion = new InformacionClienteDTO();

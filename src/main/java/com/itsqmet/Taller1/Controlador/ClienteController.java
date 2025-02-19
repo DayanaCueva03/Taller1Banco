@@ -37,39 +37,7 @@ public class ClienteController {
         // Pasamos solo un objeto al modelo
         return "Pages/DatosCliente";
     }
-    @PostMapping("/GuardarTransaccion")
-    public String enviarTransaccion(@RequestParam("id") Long id,
-                                    @RequestParam("cuentaOrigenId") Long cuentaOrigenId,
-                                    @RequestParam("cuentaOrigenNumero") String cuentaOrigenNumero,
-                                    @ModelAttribute Transacciones transacciones, RedirectAttributes redirectAttributes) {
-        Cuenta cuentaOrigen = cuentaServicio.buscarPorId(cuentaOrigenId);
-        if (cuentaOrigen == null) {
-            throw new IllegalArgumentException("La cuenta de origen no existe.");
-        }
-
-        if (cuentaOrigen.getSaldo().compareTo(BigDecimal.ZERO) <= 0 ||
-                cuentaOrigen.getSaldo().compareTo(transacciones.getMonto()) < 0) {
-            // Pasar el mensaje de error al modelo para mostrarlo en el modal
-            redirectAttributes.addFlashAttribute("mensajeError", "Saldo insuficiente");
-            // Redirigir al mismo formulario, pasando el ID del cliente
-            return "redirect:/DatosCliente?id=" + id;
-        }
-
-        // Restar el monto del saldo de la cuenta
-        cuentaOrigen.setSaldo(cuentaOrigen.getSaldo().subtract(transacciones.getMonto()));
-        cuentaServicio.guardarCuenta(cuentaOrigen);
 
 
-        transacciones.setCuenta(cuentaOrigen);
-        transacciones.setCuentaOrigen(cuentaOrigenNumero);
-        if (transacciones.getFechaMovimiento() == null) {
-            transacciones.setFechaMovimiento(LocalDate.now());
-        }
-
-        transacciones.setId(null);
-        cliente.guardarTransaccion(transacciones);
-
-        return "redirect:/DatosCliente?id=" + id;
-    }
 
 }
