@@ -1,5 +1,6 @@
 package com.itsqmet.Taller1.Service;
 
+import com.itsqmet.Taller1.Entidad.Cliente;
 import com.itsqmet.Taller1.Entidad.InformacionClienteDTO;
 import com.itsqmet.Taller1.Entidad.Transacciones;
 import com.itsqmet.Taller1.Repositorio.ClienteRepository;
@@ -30,6 +31,14 @@ public class ClienteServicio {
         }
         return null;
     }
+
+    public List<Cliente> getClientes(){
+        return clienteRepository.findAll();
+    }
+
+
+
+
      public void guardarTransaccion(Transacciones transacciones){
          transaccionesRepository.save(transacciones);
      }

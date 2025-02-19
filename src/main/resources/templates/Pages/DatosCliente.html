@@ -134,6 +134,7 @@
     <div class="bg-white p-6 rounded-lg shadow-xl w-96">
         <h3 class="text-2xl font-bold text-blue-800 mb-4">Formulario de Transferencia</h3>
         <form th:action="@{/GuardarTransaccion(id=${datos.clienteId})}" method="post" th:object="${trasaccion}">
+
             <div class="mb-4">
                 <label for="cuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
                 <select id="cuentaOrigen" name="cuentaOrigenId" class="w-full p-3 border border-gray-300 rounded-md mt-2" required
@@ -141,7 +142,7 @@
                     <option value="">Seleccione una cuenta</option>
                     <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.numeroCuenta}"></option>
                 </select>
-                    <input type="text" id="cuentaOrigenNumero" name="cuentaOrigenNumero">
+                    <input type="hidden" id="cuentaOrigenNumero" name="cuentaOrigenNumero">
             </div>
 
             <div class="mb-4">
@@ -168,6 +169,7 @@
                 <button type="button" @click="closeModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Transferir</button>
             </div>
+
         </form>
 
     </div>
@@ -177,10 +179,21 @@
 <div v-if="isRetirarModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white p-6 rounded-lg shadow-xl w-96">
         <h3 class="text-2xl font-bold text-blue-800 mb-4">Retirar Dinero</h3>
-        <form @submit.prevent="retirarDinero">
+        <form th:action="@{/RetirarDinero(id=${datos.clienteId})}" method="post" th:object="${trasaccion}">
+
+            <div class="mb-4">
+                <label for="cuentaOrigenIdRetiro" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
+                <select id="cuentaOrigenIdRetiro" name="cuentaOrigenIdRetiro" class="w-full p-3 border border-gray-300 rounded-md mt-2" required
+                        onchange="document.getElementById('cuentaOrigeRetiro').value = this.options[this.selectedIndex].text;">
+                    <option value="">Seleccione una cuenta</option>
+                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.numeroCuenta}"></option>
+                </select>
+                <input type="text" id="cuentaOrigeRetiro" name="cuentaOrigeRetiro">
+            </div>
+
             <div class="mb-4">
                 <label for="montoRetiro" class="block text-sm font-medium text-gray-700">Monto a Retirar</label>
-                <input type="number" id="montoRetiro" v-model="montoRetiro" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                <input th:field="*{monto}" type="number" id="montoRetiro" v-model="montoRetiro" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
             </div>
             <div class="flex justify-end space-x-4">
                 <button type="button" @click="closeRetirarModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
@@ -212,11 +225,26 @@
 <div v-if="isDepositarModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white p-6 rounded-lg shadow-xl w-96">
         <h3 class="text-2xl font-bold text-blue-800 mb-4">Depositar Dinero</h3>
-        <form @submit.prevent="depositarDinero">
+        <form th:action="@{/DepositarDinero(id=${datos.clienteId})}" method="post" th:object="${trasaccion}">
+
+            <div class="mb-4">
+                <label for="IdcuentaOrigen" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
+                <select id="IdcuentaOrigen" name="IdcuentaOrigen" class="w-full p-3 border border-gray-300 rounded-md mt-2" required
+                        onchange="document.getElementById('cuentaOrigenDeposito').value = this.options[this.selectedIndex].text;">
+                    <option value="">Seleccione una cuenta</option>
+                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.numeroCuenta}"></option>
+                </select>
+                <input type="text" id="cuentaOrigenDeposito" name="cuentaOrigenDeposito">
+            </div>
+
+            <!-- Campo oculto para enviar el ID de la cuenta -->
+
             <div class="mb-4">
                 <label for="montoDeposito" class="block text-sm font-medium text-gray-700">Monto a Depositar</label>
-                <input type="number" id="montoDeposito" v-model="montoDeposito" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                <!-- Usamos th:field para el monto -->
+                <input type="number" id="montoDeposito" th:field="*{monto}" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
             </div>
+
             <div class="flex justify-end space-x-4">
                 <button type="button" @click="closeDepositarModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Depositar</button>
@@ -229,14 +257,25 @@
 <div v-if="isPagosModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white p-6 rounded-lg shadow-xl w-96">
         <h3 class="text-2xl font-bold text-blue-800 mb-4">Realizar Pago</h3>
-        <form @submit.prevent="realizarPago">
+        <form th:action="@{/Pagos(id=${datos.clienteId})}" method="post" th:object="${trasaccion}">
+
+            <div class="mb-4">
+                <label for="IdcuentaOrigenPagos" class="block text-sm font-medium text-gray-700">Cuenta de Origen</label>
+                <select id="IdcuentaOrigenPagos" name="IdcuentaOrigenPagos" class="w-full p-3 border border-gray-300 rounded-md mt-2" required
+                        onchange="document.getElementById('cuentaOrigenPagos').value = this.options[this.selectedIndex].text;">
+                    <option value="">Seleccione una cuenta</option>
+                    <option th:each="cuenta : ${cuentas}" th:value="${cuenta.cuentaId}" th:text="${cuenta.numeroCuenta}"></option>
+                </select>
+                <input type="text" id="cuentaOrigenPagos" name="cuentaOrigenPagos">
+            </div>
+
             <div class="mb-4">
                 <label for="montoPago" class="block text-sm font-medium text-gray-700">Monto a Pagar</label>
-                <input type="number" id="montoPago" v-model="montoPago" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                <input th:field="*{monto}"  type="number" id="montoPago" v-model="montoPago" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
             </div>
             <div class="mb-4">
                 <label for="descripcionPago" class="block text-sm font-medium text-gray-700">Descripción</label>
-                <input type="text" id="descripcionPago" v-model="descripcionPago" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
+                <input th:field="*{descripcion}"   type="text" id="descripcionPago" v-model="descripcionPago" class="w-full p-3 border border-gray-300 rounded-md mt-2" required>
             </div>
             <div class="flex justify-end space-x-4">
                 <button type="button" @click="closePagosModal" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Cancelar</button>

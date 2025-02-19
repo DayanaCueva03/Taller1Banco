@@ -38,13 +38,26 @@
         <table class="w-full border border-gray-300 text-left">
             <thead class="bg-blue-600 text-white">
             <tr>
-                <th class="p-3 border">Nombre</th>
-                <th class="p-3 border">Email</th>
-                <th class="p-3 border">Teléfono</th>
+                <th class="p-3 border">id</th>
+                <th class="p-3 border">Cedula</th>
+                <th class="p-3 border">Nombres</th>
+                <th class="p-3 border">correo</th>
+                <th class="p-3 border">Dirección</th>
+                <th class="p-3 border">telefono</th>
                 <th class="p-3 border">Acciones</th>
             </tr>
             </thead>
-            <tbody id="clientesTabla"></tbody>
+            <tbody id="clientesTabla" >
+            <tr class="bg-gray-100 hover:bg-gray-200" th:each="cliente : ${clientes}">
+                <td class="p-3 border" th:text="${cliente.id}"></td>
+                <td class="p-3 border" th:text="${cliente.cedula}" ></td>
+                 <td class="p-3 border" th:text="${cliente.nombre}" ></td>
+                 <td class="p-3 border" th:text="${cliente.correo}" ></td>
+                 <td class="p-3 border" th:text="${cliente.direccion}" ></td>
+                 <td class="p-3 border" th:text="${cliente.telefono}" ></td>
+            </tr>
+            </tbody>
+
         </table>
     </div>
 
@@ -114,37 +127,5 @@
         <p>&copy; 2025 Prestabank. Todos los derechos reservados.</p>
     </div>
 </footer>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        cargarClientes();
-        document.getElementById("editAsesor").addEventListener("change", actualizarDescripcionAsesor);
-    });
-
-    function cargarClientes() {
-        const clientes = [
-            { nombre: "Juan Pérez", email: "juanperez@example.com", telefono: "(123) 456-7890" }
-        ];
-
-        const tabla = document.getElementById("clientesTabla");
-        clientes.forEach(cliente => {
-            let fila = `<tr class="bg-gray-100 hover:bg-gray-200">
-                            <td class="p-3 border">${cliente.nombre}</td>
-                            <td class="p-3 border">${cliente.email}</td>
-                            <td class="p-3 border">${cliente.telefono}</td>
-                            <td class="p-3 border flex gap-2">
-                                <button class="bg-yellow-500 text-white px-3 py-1 rounded" onclick="editarCliente('${cliente.nombre}', '${cliente.email}', '${cliente.telefono}')">Editar</button>
-                                <button class="bg-red-600 text-white px-3 py-1 rounded" onclick="eliminarCliente(this)">Eliminar</button>
-                            </td>
-                        </tr>`;
-            tabla.innerHTML += fila;
-        });
-    }
-
-    function actualizarDescripcionAsesor() {
-        const desc = document.getElementById("editAsesor").value === "asesor1" ? "Experto en préstamos" : "Especialista en cuentas";
-        document.getElementById("descripcionAsesor").innerText = desc;
-    }
-</script>
 </body>
 </html>
